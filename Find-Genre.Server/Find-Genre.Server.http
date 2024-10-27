@@ -1,0 +1,6 @@
+@Find_Genre.Server_HostAddress = http://localhost:5213
+
+GET {{Find_Genre.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
