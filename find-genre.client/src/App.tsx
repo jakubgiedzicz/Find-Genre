@@ -1,16 +1,14 @@
-import { useEffect, useState } from 'react';
-import './App.css';
-import SongCard from './Components/SongCard/SongCard';
-import Navbar from './Components/Navbar/Navbar';
+import '@mantine/core/styles.css'
+import { MantineProvider } from '@mantine/core';
+import { Router } from './Routes/Router';
 
 function App() {
 
 
     return (
-        <div>
-            <Navbar />
-            <SongCard />
-        </div>
+        <MantineProvider>
+            <Router />
+        </MantineProvider>
     );
 }
 

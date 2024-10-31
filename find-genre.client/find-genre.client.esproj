@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Components\Navbar\" />
+    <Folder Include="src\Pages\Home\" />
     <Folder Include="src\Routes\" />
-    <Folder Include="src\Pages\" />
   </ItemGroup>
 </Project>
