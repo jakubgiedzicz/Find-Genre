@@ -4,7 +4,6 @@ import { Router } from './Routes/Router';
 
 function App() {
 
-
     return (
         <MantineProvider>
             <Router />
