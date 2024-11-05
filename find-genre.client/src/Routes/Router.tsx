@@ -1,11 +1,12 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Home from '../Pages/Home/Home';
-const router = createBrowserRouter([
+import App from '../App';
+export const Router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />
+        element: <App />,
+        children: [
+            { path: "", element: <Home /> }
+        ]
     }
 ])
-export function Router() {
-    return <RouterProvider router={router} />;
-}
