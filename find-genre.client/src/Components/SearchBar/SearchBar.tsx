@@ -6,8 +6,8 @@ function SearchBar() {
     return (
         <TextInput
             rightSection={icon}
-            aria-label="Enter genre name"
-            placeholder="Enter genre name"
+            aria-label="Search genre by name"
+            placeholder="Search genre by name"
         />
   );
 }

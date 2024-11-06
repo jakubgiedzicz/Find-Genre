@@ -1,9 +1,8 @@
-import SongCard from '../../Components/SongCard/SongCard';
 
 function Home() {
   return (
       <>
-          <SongCard />
+          xdd
       </>
   );
 }
