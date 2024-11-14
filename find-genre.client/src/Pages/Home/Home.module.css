@@ -1,3 +1,4 @@
-.root {
-    width: 45%;
+.stackRoot {
+    min-width: 350px;
+    max-width: 600px;
 }
