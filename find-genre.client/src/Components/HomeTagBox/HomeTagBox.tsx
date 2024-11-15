@@ -2,23 +2,23 @@ import { Button, Group, Text, useMantineColorScheme } from "@mantine/core";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import styles from "./HomeTagBox.module.css";
 import React, { useState } from "react";
+import { ITagData } from "../../Types/hometag";
 interface Props {
-  name: string
+  tag: ITagData,
+  update: (tag: ITagData, state: string) => void
 }
 
 const HomeTagBox = (props: Props) => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
-  //true stands for tag = included, false = exclude tag in search
-  const [tagStatus, setTagStatus] = useState(true)
   const tagBackground = () => {
     if (colorScheme === 'dark'){
-      if (tagStatus === true){
+      if (props.tag.state === 'include'){
         return styles.include_dark + ' ' + styles.container_padding
-      } else return styles.exclude_dark + ' ' + styles.container_padding
+      } else if(props.tag.state === 'exclude')return styles.exclude_dark + ' ' + styles.container_padding
     } else {
-      if (tagStatus === true){
+      if (props.tag.state === 'include'){
         return styles.include_light + ' ' + styles.container_padding
-      } else return styles.exclude_light + ' ' + styles.container_padding
+      } else if(props.tag.state==='exclude')return styles.exclude_light + ' ' + styles.container_padding
     }
   }
   const buttonVariant = () => {
@@ -26,20 +26,20 @@ const HomeTagBox = (props: Props) => {
       return 'light'
     } else return 'filled'
   }
-  const handleClick = (status: boolean) => {
-    if(status === true){
-      setTagStatus(true)
+  const handleClick = (status: string) => {
+    if(status === 'include'){
+      props.update(props.tag, 'include')
     } else {
-      setTagStatus(false)
+      props.update(props.tag, 'exclude')
     }
   }
 
   return (
     <>
-      <Group justify="space-around" classNames={{root: tagBackground()}}>
-        <Button variant={buttonVariant()} color="green" onClick={() => handleClick(true)}><PlusIcon /></Button>
-        <Text>{props.name}</Text>
-        <Button variant={buttonVariant()} color="red" onClick={() => handleClick(false)}><MinusIcon /></Button>
+      <Group justify="space-between" classNames={{root: tagBackground()}}>
+        <Button variant={buttonVariant()} color="green" onClick={() => handleClick('include')}><PlusIcon /></Button>
+        <Text>{props.tag.value}</Text>
+        <Button variant={buttonVariant()} color="red" onClick={() => handleClick('exclude')}><MinusIcon /></Button>
       </Group>
     </>
   );

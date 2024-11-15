@@ -14,45 +14,37 @@ import {
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import HomeTagBox from "../../Components/HomeTagBox/HomeTagBox";
-interface ITagData {
-  value: string;
-  disabled: boolean;
-}
-interface ITagState extends ITagData {
-  id: number;
-}
+import { ITagData } from "../../Types/hometag";
 
 function Home() {
   const icon = <MagnifyingGlassIcon />;
-  const [count, setCount] = useState(1);
   const [value, setValue] = useState("");
-  const [required, setRequired] = useState<ITagState[]>([]);
-  const [optional, setOptional] = useState<ITagState[]>([]);
-  const [exclude, setExclude] = useState<ITagState[]>([]);
-  const tagsL = [
-    "dark",
-    "electronic",
-    "choir",
-    "popular",
-    "niche",
-    "club",
-    "solitude",
-    "tiktok",
-    "fast",
-    "slow",
-    "cheerful",
-    "old",
-    "classic",
-    "western",
-    "korean",
-    "european",
-  ];
-  const [dataR, setDataR] = useState<ITagData[]>([
-    { value: "React", disabled: false },
-    { value: "Angular", disabled: false },
-    { value: "Vue", disabled: false },
-    { value: "Svelte", disabled: false },
+  const [tags, setTags] = useState<ITagData[]>([
+    { value: "dark", id: 1, state: 'default' },
+    { value: "electronic", id: 2, state: 'default' },
+    { value: "choir", id: 3, state: 'default' },
+    { value: "popular", id: 4, state: 'default' },
+    { value: "niche", id: 5, state: 'default' },
+    { value: "club", id: 6, state: 'default' },
+    { value: "solitude", id: 7, state: 'default' },
+    { value: "tiktok", id: 8, state: 'default' },
+    { value: "fast", id: 9, state: 'default' },
+    { value: "slow", id: 10, state: 'default' },
+    { value: "cheerful", id: 11, state: 'default' },
+    { value: "old", id: 12, state: 'default' },
+    { value: "classic", id: 13, state: 'default' },
+    { value: "western", id: 14, state: 'default' },
+    { value: "korean", id: 15, state: 'default' },
+    { value: "european", id: 16, state: 'default' },
   ]);
+  const updateTag = (tag: ITagData, state: string) => {
+    const newTags = [...tags]
+    const update = newTags.find(
+      a => a.id === tag.id
+    )
+    update!.state = state
+    setTags(newTags)
+  }
   return (
     <>
       <Stack pt="4em" align="center">
@@ -62,15 +54,17 @@ function Home() {
             Type in words that describe the music you're looking for
           </Text>
         </Box>
-        <Stack miw={350} gap='sm'>
-            <TextInput
-              placeholder="Search for tags"
-              value={value}
-              onChange={(event) => setValue(event.currentTarget.value)}
-              rightSection={icon}
-            />
-            <Divider my="sm"/>
-            <HomeTagBox name={tagsL[1]}/>
+        <Stack miw={350} gap="sm">
+          <TextInput
+            placeholder="Search for tags"
+            value={value}
+            onChange={(event) => setValue(event.currentTarget.value)}
+            rightSection={icon}
+          />
+          <Divider my="sm" />
+          {tags.slice(0, 8).map((tag) => (
+            <HomeTagBox tag={tag} update={updateTag}/>
+          ))}
         </Stack>
       </Stack>
     </>
