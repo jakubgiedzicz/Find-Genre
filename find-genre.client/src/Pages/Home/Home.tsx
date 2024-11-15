@@ -13,7 +13,6 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
-import classes from "./Home.module.css";
 import HomeTagBox from "../../Components/HomeTagBox/HomeTagBox";
 interface ITagData {
   value: string;
