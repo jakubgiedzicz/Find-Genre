@@ -8,7 +8,6 @@ interface Props {
 }
 
 const HomeTagBox = (props: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const tagBackground = () => {
     if (colorScheme === "dark") {
