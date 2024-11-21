@@ -37,27 +37,49 @@ namespace Find_Genre.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GenreTag",
+                columns: table => new
+                {
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    TagsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GenreTag", x => new { x.GenreId, x.TagsId });
                     table.ForeignKey(
-                        name: "FK_Tags_Genres_GenreId",
+                        name: "FK_GenreTag_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GenreTag_Tags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_GenreId",
-                table: "Tags",
-                column: "GenreId");
+                name: "IX_GenreTag_TagsId",
+                table: "GenreTag",
+                column: "TagsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "GenreTag");
 
             migrationBuilder.DropTable(
                 name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
         }
     }
 }

@@ -3,6 +3,7 @@ using Find_Genre.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241121145747_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,23 +66,37 @@ namespace Find_Genre.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GenreId");
-
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Find_Genre.Server.Models.Tag", b =>
+            modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.HasOne("Find_Genre.Server.Models.Genre", "Genre")
-                        .WithMany("Tags")
-                        .HasForeignKey("GenreId");
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
 
-                    b.Navigation("Genre");
+                    b.Property<int>("TagsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenreId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("GenreTag");
                 });
 
-            modelBuilder.Entity("Find_Genre.Server.Models.Genre", b =>
+            modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.Navigation("Tags");
+                    b.HasOne("Find_Genre.Server.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Find_Genre.Server.Models.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

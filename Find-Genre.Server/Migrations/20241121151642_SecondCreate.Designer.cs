@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241121120706_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20241121151642_SecondCreate")]
+    partial class SecondCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,9 +73,11 @@ namespace Find_Genre.Server.Migrations
 
             modelBuilder.Entity("Find_Genre.Server.Models.Tag", b =>
                 {
-                    b.HasOne("Find_Genre.Server.Models.Genre", null)
+                    b.HasOne("Find_Genre.Server.Models.Genre", "Genre")
                         .WithMany("Tags")
                         .HasForeignKey("GenreId");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("Find_Genre.Server.Models.Genre", b =>
