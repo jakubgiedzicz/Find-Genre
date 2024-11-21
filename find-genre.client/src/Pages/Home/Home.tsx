@@ -44,7 +44,7 @@ function Home() {
       <Stack pt="4em" align="center">
         <Box>
           <Title ta="center">Search by tags</Title>
-          <Text ta="center">
+          <Text ta="center" fw={500}>
             Type in words that describe the music you're looking for
           </Text>
         </Box>
@@ -65,7 +65,6 @@ function Home() {
           )}
           {tags.map(
             (tag) =>
-              tag.state != "default" ||
               (tag.value.includes(value) && tag.state === "default" && (
                 <HomeTagBox tag={tag} update={updateTag} key={"0" + tag.id} />
               ))

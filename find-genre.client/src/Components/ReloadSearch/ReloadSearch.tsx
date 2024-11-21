@@ -1,5 +1,6 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
-import styles from './ReloadSearch.module.css'
+import styles from "./ReloadSearch.module.css";
+import { HoverCard, Text } from "@mantine/core";
 
 type Props = {
   handleReload: () => void;
@@ -7,9 +8,17 @@ type Props = {
 
 const ReloadSearch = (props: Props) => {
   return (
-    <>
-      <ReloadIcon onClick={() => props.handleReload()} className={styles.icon} />
-    </>
+    <HoverCard position="right">
+      <HoverCard.Target>
+        <ReloadIcon
+          onClick={() => props.handleReload()}
+          className={styles.icon}
+        />
+      </HoverCard.Target>
+      <HoverCard.Dropdown>
+        <Text>Use the reload button, to reset the list</Text>
+      </HoverCard.Dropdown>
+    </HoverCard>
   );
 };
 
