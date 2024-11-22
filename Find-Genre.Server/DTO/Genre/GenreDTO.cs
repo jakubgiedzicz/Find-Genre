@@ -1,10 +1,11 @@
-﻿namespace Find_Genre.Server.Models
+﻿using Find_Genre.Server.Models;
+
+namespace Find_Genre.Server.DTO.Genre
 {
-    public class Genre
+    public class GenreDTO
     {
         public int GenreId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public List<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Find_Genre.Server.Data;
+using Find_Genre.Server.Interfaces;
+using Find_Genre.Server.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Controllers
 {
@@ -7,31 +10,19 @@ namespace Find_Genre.Server.Controllers
     [ApiController]
     public class TagController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
+        private readonly ITagRepository tagRepo;
 
-        public TagController(ApplicationDbContext context)
+        public TagController(ITagRepository tagRepo)
         {
-            this.context = context;
+            this.tagRepo = tagRepo;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var tags = context.Tags.ToList();
+            var tags = await tagRepo.GetAllAsync();
+            var tagDTO = tags.Select(s => s.ToTagDTO());
 
-            return Ok(tags);
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
-        {
-
-            var tag = context.Tags.Find(id);
-
-            if (tag == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(tag);
+            return Ok(tagDTO);
         }
     }
 }
