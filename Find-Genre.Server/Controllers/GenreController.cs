@@ -12,19 +12,17 @@ namespace Find_Genre.Server.Controllers
     [Route("/api/genre")]
     public class GenreController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
         private readonly IGenreRepository genreRepo;
 
         public GenreController(ApplicationDbContext context, IGenreRepository genreRepo)
         {
-            this.context = context;
             this.genreRepo = genreRepo;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
-            var genreDTO = genres.Select(s => s.ToGenreDTO());
+            var genreDTO = genres.Select(s => s.ToGenreDTO()).ToList();
 
 
             return Ok(genres);

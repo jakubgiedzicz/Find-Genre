@@ -36,7 +36,7 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<List<Genre>> GetAllAsync()
         {
-            return await context.Genres.ToListAsync();
+            return await context.Genres.Include(t => t.Tags).ToListAsync();
         }
 
         public async Task<Genre?> GetByIdAsync(int id)

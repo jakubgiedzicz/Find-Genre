@@ -3,6 +3,7 @@ using Find_Genre.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241122212456_ManyToMany")]
+    partial class ManyToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,13 +64,13 @@ namespace Find_Genre.Server.Migrations
 
             modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.Property<int>("GenresGenreId")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("TagsTagId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreId", "TagsTagId");
+                    b.HasKey("GenreId", "TagsTagId");
 
                     b.HasIndex("TagsTagId");
 
@@ -78,7 +81,7 @@ namespace Find_Genre.Server.Migrations
                 {
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreId")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

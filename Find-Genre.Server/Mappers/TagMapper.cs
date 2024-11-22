@@ -11,7 +11,6 @@ namespace Find_Genre.Server.Mappers
             {
                 TagId = tagModel.TagId,
                 Name = tagModel.Name,
-                GenreId = tagModel.GenreId
             };
         }
     }

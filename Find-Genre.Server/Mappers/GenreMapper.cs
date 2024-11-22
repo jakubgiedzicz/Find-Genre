@@ -13,6 +13,7 @@ namespace Find_Genre.Server.Mappers
                 GenreId = genreModel.GenreId,
                 Name = genreModel.Name,
                 Description = genreModel.Description,
+                Tags = genreModel.Tags.Select(x => x.ToTagDTO()).ToList()
             };
         }
         public static Genre ToGenreFromCreateDTO(this CreateGenreRequestDTO genreDTO)
