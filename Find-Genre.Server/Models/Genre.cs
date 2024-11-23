@@ -1,10 +1,12 @@
-﻿namespace Find_Genre.Server.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Find_Genre.Server.Models
 {
     public class Genre
     {
-        public int GenreId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<Tag>? Tags { get; set; }
     }
 }

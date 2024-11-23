@@ -23,11 +23,11 @@ namespace Find_Genre.Server.Migrations
 
             modelBuilder.Entity("Find_Genre.Server.Models.Genre", b =>
                 {
-                    b.Property<int>("GenreId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -37,39 +37,39 @@ namespace Find_Genre.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GenreId");
+                    b.HasKey("Id");
 
                     b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("Find_Genre.Server.Models.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TagId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.Property<int>("GenresGenreId")
+                    b.Property<int>("GenresId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsTagId")
+                    b.Property<int>("TagsId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreId", "TagsTagId");
+                    b.HasKey("GenresId", "TagsId");
 
-                    b.HasIndex("TagsTagId");
+                    b.HasIndex("TagsId");
 
                     b.ToTable("GenreTag");
                 });
@@ -78,13 +78,13 @@ namespace Find_Genre.Server.Migrations
                 {
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreId")
+                        .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Find_Genre.Server.Models.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsTagId")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

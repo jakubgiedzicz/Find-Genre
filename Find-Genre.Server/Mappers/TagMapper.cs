@@ -9,7 +9,7 @@ namespace Find_Genre.Server.Mappers
         {
             return new TagDTO
             {
-                TagId = tagModel.TagId,
+                Id = tagModel.Id,
                 Name = tagModel.Name,
             };
         }

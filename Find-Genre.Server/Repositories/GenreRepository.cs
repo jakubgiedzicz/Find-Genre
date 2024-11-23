@@ -24,7 +24,7 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre?> DeleteAsync(int id)
         {
-            var genreModel = await context.Genres.FirstOrDefaultAsync(x => x.GenreId == id);
+            var genreModel = await context.Genres.FirstOrDefaultAsync(x => x.Id == id);
             if (genreModel == null)
             {
                 return null;
@@ -36,7 +36,8 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<List<Genre>> GetAllAsync()
         {
-            return await context.Genres.Include(t => t.Tags).ToListAsync();
+            
+            return await context.Genres.Include(g => g.Tags).ToListAsync();
         }
 
         public async Task<Genre?> GetByIdAsync(int id)
@@ -46,7 +47,7 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre?> UpdateAsync(int id, UpdateGenreRequestDTO genreDTO)
         {
-            var existing = await context.Genres.FirstOrDefaultAsync(x => x.GenreId == id);
+            var existing = await context.Genres.FirstOrDefaultAsync(x => x.Id == id);
             if (existing == null)
             {
                 return null;

@@ -15,7 +15,13 @@ namespace Find_Genre.Server.Repositories
         }
         public async Task<List<Tag>> GetAllAsync()
         {
-            return await context.Tags.ToListAsync();
+            return await context.Tags.Include(t => t.Genres).ToListAsync();
+        }
+        public async Task<Tag> CreateAsync(Tag tagModel)
+        {
+            await context.Tags.AddAsync(tagModel);
+            await context.SaveChangesAsync();
+            return tagModel;
         }
     }
 }

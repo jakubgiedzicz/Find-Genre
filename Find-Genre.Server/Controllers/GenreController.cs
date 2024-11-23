@@ -22,7 +22,6 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
-            var genreDTO = genres.Select(s => s.ToGenreDTO()).ToList();
 
 
             return Ok(genres);
@@ -43,7 +42,7 @@ namespace Find_Genre.Server.Controllers
         {
             var genreModel = genreDTO.ToGenreFromCreateDTO();
             await genreRepo.CreateAsync(genreModel);
-            return CreatedAtAction(nameof(GetById), new { id = genreModel.GenreId }, genreModel.ToGenreDTO());
+            return CreatedAtAction(nameof(GetById), new { id = genreModel.Id }, genreModel.ToGenreDTO());
         }
         [HttpPut]
         [Route("{id}")]
