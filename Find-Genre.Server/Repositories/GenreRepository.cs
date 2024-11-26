@@ -42,10 +42,10 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre?> GetByIdAsync(int id)
         {
-            return await context.Genres.FindAsync(id);
+            return await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(g => g.Id == id);
         }
 
-        public async Task<Genre?> UpdateAsync(int id, UpdateGenreRequestDTO genreDTO)
+        public async Task<Genre?> UpdateAsync(int id, Genre genreDTO)
         {
             var existing = await context.Genres.FirstOrDefaultAsync(x => x.Id == id);
             if (existing == null)

@@ -35,27 +35,27 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             }
-            return Ok(genre.ToGenreDTO());
+            return Ok(genre);
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateGenreRequestDTO genreDTO)
+        public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)
         {
-            var genreModel = genreDTO.ToGenreFromCreateDTO();
+            var genreModel = genreDTO.ToCreateGenreDTO();
             await genreRepo.CreateAsync(genreModel);
             return CreatedAtAction(nameof(GetById), new { id = genreModel.Id }, genreModel.ToGenreDTO());
         }
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateGenreRequestDTO updateDTO)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateGenreDTO updateDTO)
         {
-            var genreModel = await genreRepo.UpdateAsync(id, updateDTO);
-            if (genreModel == null)
-            {
-                return NotFound();
-            }
+            //var genreModel = await genreRepo.UpdateAsync(id, updateDTO);
+            //if (genreModel == null)
+            //{
+              //  return NotFound();
+            //}
+            throw new NotImplementedException();
             
-
-            return Ok(genreModel.ToGenreDTO());
+//            return Ok(genreModel.ToGenreDTO());
         }
         [HttpDelete]
         [Route("{id}")]

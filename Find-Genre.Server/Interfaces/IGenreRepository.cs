@@ -8,7 +8,7 @@ namespace Find_Genre.Server.Interfaces
         Task<List<Genre>> GetAllAsync();
         Task<Genre?> GetByIdAsync(int id);
         Task<Genre> CreateAsync(Genre genreModel);
-        Task<Genre?> UpdateAsync(int id, UpdateGenreRequestDTO genreDTO);
+        Task<Genre?> UpdateAsync(int id, Genre genre);
         Task<Genre?> DeleteAsync(int id);
     }
 }

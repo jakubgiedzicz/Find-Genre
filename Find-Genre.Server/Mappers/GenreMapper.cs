@@ -15,12 +15,13 @@ namespace Find_Genre.Server.Mappers
                 Description = genreModel.Description,
             };
         }
-        public static Genre ToGenreFromCreateDTO(this CreateGenreRequestDTO genreDTO)
+        public static Genre ToCreateGenreDTO(this CreateGenreDTO createGenreDTO)
         {
             return new Genre
             {
-                Name = genreDTO.Name,
-                Description = genreDTO.Description,
+                Name = createGenreDTO.Name,
+                Description = createGenreDTO.Description,
+                Tags = createGenreDTO.Tags,
             };
         }
     }
