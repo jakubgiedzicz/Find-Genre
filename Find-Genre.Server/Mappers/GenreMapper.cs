@@ -6,16 +6,16 @@ namespace Find_Genre.Server.Mappers
 {
     public static class GenreMapper
     {
-        public static GenreDTO ToGenreDTO(this Genre genreModel)
+        public static Genre ToGenreDTO(this Genre genreModel)
         {
-            return new GenreDTO
+            return new Genre
             {
                 Id = genreModel.Id,
                 Name = genreModel.Name,
                 Description = genreModel.Description,
             };
         }
-        public static Genre ToCreateGenreDTO(this CreateGenreDTO createGenreDTO)
+        public static Genre FromCreateGenreDTO(this CreateGenreDTO createGenreDTO)
         {
             return new Genre
             {

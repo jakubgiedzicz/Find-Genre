@@ -40,9 +40,9 @@ namespace Find_Genre.Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)
         {
-            var genreModel = genreDTO.ToCreateGenreDTO();
-            await genreRepo.CreateAsync(genreModel);
-            return CreatedAtAction(nameof(GetById), new { id = genreModel.Id }, genreModel.ToGenreDTO());
+            await genreRepo.CreateAsync(genreDTO);
+            //return CreatedAtAction(nameof(GetById), new { id = genreDTO.Id }, genreModel.ToGenreDTO());
+            return Ok();
         }
         [HttpPut]
         [Route("{id}")]

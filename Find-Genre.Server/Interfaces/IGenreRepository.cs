@@ -1,4 +1,5 @@
 ﻿using Find_Genre.Server.DTO.Genre;
+using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Models;
 
 namespace Find_Genre.Server.Interfaces
@@ -7,8 +8,10 @@ namespace Find_Genre.Server.Interfaces
     {
         Task<List<Genre>> GetAllAsync();
         Task<Genre?> GetByIdAsync(int id);
-        Task<Genre> CreateAsync(Genre genreModel);
+        Task<Genre?> GetByName(string name);
+        Task<Genre> CreateAsync(CreateGenreDTO genreModel);
         Task<Genre?> UpdateAsync(int id, Genre genre);
         Task<Genre?> DeleteAsync(int id);
+        Task<Genre?> UpdateTagsOnGenre(string genre, List<Tag> tags);
     }
 }
