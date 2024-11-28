@@ -4,8 +4,5 @@ GET {{Find_Genre.Server_HostAddress}}/genre
 Accept: application/json
 
 ###
-GET {{Find_Genre.Server_HostAddress}}/weatherforecast
-
-###
 GET {{Find_Genre.Server_HostAddress}}/genre/2
 Accept: application/json

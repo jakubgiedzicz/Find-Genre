@@ -5,6 +5,6 @@ namespace Find_Genre.Server.Models
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public List<Tag>? Tags { get; set; }
+        public List<int>? TagId { get; set; }
     }
 }

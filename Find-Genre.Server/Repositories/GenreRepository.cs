@@ -19,21 +19,15 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre> CreateAsync(CreateGenreDTO genreModel)
         {
-            //genre bez id
-            var genre = new CreateGenreDTO
-            {
-                Name = genreModel.Name,
-                Description = genreModel.Description,
-                Tags = []
-            };
+            var genre = genreModel.FromCreateGenreDTO();
             var tagList = await context.Tags.ToListAsync();
-            foreach (var item in genreModel.Tags)
+            foreach (var item in genreModel.TagId)
             {
-                genre.Tags.Add(tagList.First(t => t.Id == item.Id));
+                genre.Tags.Add(tagList.First(t => t.Id == item));
             }
-            await context.Genres.AddAsync(genre.FromCreateGenreDTO());
+            await context.Genres.AddAsync(genre);
             await context.SaveChangesAsync();
-            return genre.FromCreateGenreDTO();
+            return genre;
         }
 
         public async Task<Genre?> DeleteAsync(int id)
@@ -64,23 +58,23 @@ namespace Find_Genre.Server.Repositories
             return await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(g => g.Name == name);
         }
 
-        public async Task<Genre?> UpdateAsync(int id, Genre genreDTO)
+        public async Task<Genre?> UpdateAsync(int id, CreateGenreDTO genreDTO)
         {
-            var existing = await context.Genres.FirstOrDefaultAsync(x => x.Id == id);
+            var existing = await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(x => x.Id == id);
             if (existing == null)
             {
                 return null;
             }
             existing.Name = genreDTO.Name;
             existing.Description = genreDTO.Description;
-
+            existing.Tags.Clear();
+            var tagList = await context.Tags.ToListAsync();
+            foreach (var item in genreDTO.TagId)
+            {
+                existing.Tags.Add(tagList.First(t => t.Id == item));
+            }
             await context.SaveChangesAsync();
             return existing;
-        }
-
-        public Task<Genre?> UpdateTagsOnGenre(string genred, List<Tag> tags)
-        {
-            throw new NotImplementedException();
         }
     }
 }
