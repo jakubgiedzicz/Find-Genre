@@ -22,7 +22,7 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
-            var genreDTO = genres.Select(s => s.FromGenreToGetAllDTO());
+            var genreDTO = genres.Select(s => s.FromGenreToGenreShallowDTO());
 
 
             return Ok(genreDTO);
@@ -31,7 +31,7 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
-            var genreDTO = genre.FromGenreToGetAllDTO();
+            var genreDTO = genre.FromGenreToGenreShallowDTO();
             if(genreDTO == null)
             {
                 return NotFound();
@@ -42,8 +42,7 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)
         {
             var genre = await genreRepo.CreateAsync(genreDTO);
-            return CreatedAtAction(nameof(GetById), new { id = genre.Id }, genre);
-            //return Ok();
+            return CreatedAtAction(nameof(GetById), new { id = genre.Id }, genre.FromGenreToGenreShallowDTO());
         }
         [HttpPut]
         [Route("{id}")]
@@ -54,7 +53,7 @@ namespace Find_Genre.Server.Controllers
             {
               return NotFound();
             }
-            return Ok(genreModel);
+            return Ok(genreModel.FromGenreToGenreShallowDTO());
         }
         [HttpDelete]
         [Route("{id}")]

@@ -52,12 +52,6 @@ namespace Find_Genre.Server.Repositories
         {
             return await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(g => g.Id == id);
         }
-
-        public async Task<Genre?> GetByName(string name)
-        {
-            return await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(g => g.Name == name);
-        }
-
         public async Task<Genre?> UpdateAsync(int id, CreateGenreDTO genreDTO)
         {
             var existing = await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(x => x.Id == id);

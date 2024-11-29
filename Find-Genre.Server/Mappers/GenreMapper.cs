@@ -16,14 +16,14 @@ namespace Find_Genre.Server.Mappers
                 Tags = [],
             };
         }
-        public static GenreGetAllDTO FromGenreToGetAllDTO(this Genre genre)
+        public static GenreShallowTagDTO FromGenreToGenreShallowDTO(this Genre genre)
         {
-            return new GenreGetAllDTO
+            return new GenreShallowTagDTO
             {
                 Id = genre.Id,
                 Name = genre.Name,
                 Description = genre.Description,
-                Tags = genre.Tags.Select(g => new TagSDTO { Id = g.Id, Name = g.Name }).ToList()
+                Tags = genre.Tags.Select(g => new TagDTO { Id = g.Id, Name = g.Name }).ToList()
             };
         }
     }
