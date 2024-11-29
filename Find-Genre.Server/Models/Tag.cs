@@ -6,7 +6,6 @@ namespace Find_Genre.Server.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        [JsonIgnore]
         public List<Genre>? Genres { get; set; }
     }
 }

@@ -22,20 +22,21 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
+            var genreDTO = genres.Select(s => s.FromGenreToGetAllDTO());
 
 
-            return Ok(genres);
+            return Ok(genreDTO);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
-
-            if(genre == null)
+            var genreDTO = genre.FromGenreToGetAllDTO();
+            if(genreDTO == null)
             {
                 return NotFound();
             }
-            return Ok(genre);
+            return Ok(genreDTO);
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)
