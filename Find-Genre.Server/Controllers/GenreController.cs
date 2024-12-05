@@ -1,10 +1,8 @@
 ﻿using Find_Genre.Server.Data;
-using Find_Genre.Server.DTO.Genre;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Controllers
 {

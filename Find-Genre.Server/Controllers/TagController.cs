@@ -38,6 +38,16 @@ namespace Find_Genre.Server.Controllers
             }
             return Ok(tagDTO);
         }
+        [HttpGet("/bytag")]
+        public async Task<IActionResult> GetByTags([FromQuery] List<int> tagIds)
+        {
+            var genres = await tagRepo.GetByTags(tagIds);
+            if (genres == null)
+            {
+                return NotFound();
+            }
+            return Ok(genres);
+        }
         [HttpPost]
         public async Task <IActionResult> Create([FromBody] CreateTagDTO tagDTO)
         {

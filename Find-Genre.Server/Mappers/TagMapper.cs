@@ -1,6 +1,7 @@
 ﻿using Find_Genre.Server.DTO.Genre;
 using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Models;
+using System.Runtime.CompilerServices;
 
 namespace Find_Genre.Server.Mappers
 {
@@ -21,6 +22,13 @@ namespace Find_Genre.Server.Mappers
             {
                 Name = createTagDTO.Name,
                 Genres = []
+            };
+        }
+        public static Tag FromTagNameDTO(this TagNameDTO nameDTO)
+        {
+            return new Tag
+            {
+                Name = nameDTO.Name,
             };
         }
     }

@@ -11,6 +11,5 @@ namespace Find_Genre.Server.Data
         }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        
     }
 }
