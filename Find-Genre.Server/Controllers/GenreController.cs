@@ -29,11 +29,11 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
-            var genreDTO = genre.FromGenreToGenreShallowDTO();
-            if(genreDTO == null)
+            if(genre == null)
             {
                 return NotFound();
             }
+            var genreDTO = genre.FromGenreToGenreShallowDTO();
             return Ok(genreDTO);
         }
         [HttpPost]

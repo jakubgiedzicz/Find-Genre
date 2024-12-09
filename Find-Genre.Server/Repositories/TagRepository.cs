@@ -4,6 +4,7 @@ using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Repositories
@@ -24,7 +25,7 @@ namespace Find_Genre.Server.Repositories
         {
             return await context.Tags.Include(g => g.Genres).FirstOrDefaultAsync(g => g.Id == id);
         }
-        public async Task<IEnumerable<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
+        public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
         {
             var tags = context.Tags.Where(g => tagIds.Contains(g.Id));
             var genres = context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre)));
@@ -39,10 +40,14 @@ namespace Find_Genre.Server.Repositories
         public async Task<Tag> CreateAsync(CreateTagDTO tagModel)
         {
             var tag = tagModel.FromCreateTagDTO();
-            var genreList = await context.Genres.ToListAsync();
-            foreach (var item in tagModel.GenreId)
+            IQueryable<Genre> genres = context.Genres.Where(g => tagModel.GenreId.Contains(g.Id));
+            foreach (var item in genres)
             {
-                tag.Genres.Add(genreList.First(t => t.Id == item));
+                if (item is not Genre)
+                {
+                    return null;
+                };
+                tag.Genres.Add(item);
             }
             await context.Tags.AddAsync(tag);
             await context.SaveChangesAsync();

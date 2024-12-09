@@ -20,10 +20,10 @@ namespace Find_Genre.Server.Repositories
         public async Task<Genre> CreateAsync(CreateGenreDTO genreModel)
         {
             var genre = genreModel.FromCreateGenreDTO();
-            var tagList = await context.Tags.ToListAsync();
-            foreach (var item in genreModel.TagId)
+            var tagList = context.Tags.Where(t => genreModel.TagId.Contains(t.Id));
+            foreach (var item in tagList)
             {
-                genre.Tags.Add(tagList.First(t => t.Id == item));
+                genre.Tags.Add(item);
             }
             await context.Genres.AddAsync(genre);
             await context.SaveChangesAsync();
@@ -44,7 +44,6 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<List<Genre>> GetAllAsync()
         {
-            
             return await context.Genres.Include(g => g.Tags).ToListAsync();
         }
 
@@ -62,6 +61,8 @@ namespace Find_Genre.Server.Repositories
             existing.Name = genreDTO.Name;
             existing.Description = genreDTO.Description;
             existing.Tags.Clear();
+            existing.Promoted = genreDTO.Promoted;
+            existing.Examples = genreDTO.Examples;
             var tagList = await context.Tags.ToListAsync();
             foreach (var item in genreDTO.TagId)
             {
