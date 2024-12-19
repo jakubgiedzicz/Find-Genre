@@ -6,6 +6,7 @@ using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Find_Genre.Server.Repositories
 {
@@ -40,13 +41,18 @@ namespace Find_Genre.Server.Repositories
         public async Task<Tag> CreateAsync(CreateTagDTO tagModel)
         {
             var tag = tagModel.FromCreateTagDTO();
-            IQueryable<Genre> genres = context.Genres.Where(g => tagModel.GenreId.Contains(g.Id));
+            var genres = await context.Genres.Where(g => tagModel.GenreId.Contains(g.Id)).ToListAsync();
+            if (genres.Count != tagModel.GenreId.Count)
+            {
+                return null;
+            }
+            var existing = await context.Tags.Where(t => t.Name.ToLower().Contains(tagModel.Name.ToLower())).FirstOrDefaultAsync();
+            if (existing != null)
+            {
+                return null;
+            }
             foreach (var item in genres)
             {
-                if (item is not Genre)
-                {
-                    return null;
-                };
                 tag.Genres.Add(item);
             }
             await context.Tags.AddAsync(tag);
@@ -60,12 +66,21 @@ namespace Find_Genre.Server.Repositories
             {
                 return null;
             }
+            var name = await context.Tags.Where(t => t.Name.ToLower().Contains(tagDTO.Name.ToLower())).FirstOrDefaultAsync();
+            if (name != null)
+            {
+                return null;
+            }
+            var genres = await context.Genres.Where(g => tagDTO.GenreId.Contains(g.Id)).ToListAsync();
+            if (genres.Count != tagDTO.GenreId.Count)
+            {
+                return null;
+            }
             existing.Name = tagDTO.Name;
             existing.Genres.Clear();
-            var genreList = await context.Genres.ToListAsync();
-            foreach (var item in tagDTO.GenreId)
+            foreach (var item in genres)
             {
-                existing.Genres.Add(genreList.First(t => t.Id == item));
+                existing.Genres.Add(item);
             }
             await context.SaveChangesAsync();
             return existing;
