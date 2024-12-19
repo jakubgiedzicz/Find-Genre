@@ -4,6 +4,7 @@ using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Repositories
@@ -20,7 +21,16 @@ namespace Find_Genre.Server.Repositories
         public async Task<Genre> CreateAsync(CreateGenreDTO genreModel)
         {
             var genre = genreModel.FromCreateGenreDTO();
-            var tagList = context.Tags.Where(t => genreModel.TagId.Contains(t.Id));
+            var tagList = await context.Tags.Where(t => genreModel.TagId.Contains(t.Id)).ToListAsync();
+            if (tagList.Count != genreModel.TagId.Count)
+            {
+                return null;
+            }
+            var existing = await context.Genres.Where(g => g.Name.ToLower().Contains(genreModel.Name.ToLower())).FirstOrDefaultAsync();
+            if (existing != null)
+            {
+                return null;
+            }
             foreach (var item in tagList)
             {
                 genre.Tags.Add(item);
@@ -63,7 +73,11 @@ namespace Find_Genre.Server.Repositories
             existing.Tags.Clear();
             existing.Promoted = genreDTO.Promoted;
             existing.Examples = genreDTO.Examples;
-            var tagList = await context.Tags.ToListAsync();
+            var tagList = await context.Tags.Where(t => genreDTO.TagId.Contains(t.Id)).ToListAsync();
+            if (tagList.Count != genreDTO.TagId.Count)
+            {
+                return null;
+            }
             foreach (var item in genreDTO.TagId)
             {
                 existing.Tags.Add(tagList.First(t => t.Id == item));
