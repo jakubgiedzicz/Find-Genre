@@ -7,6 +7,7 @@
         public string Description { get; set; } = string.Empty;
         public List<string> Examples { get; set; } = new List<string>();
         public List<string> Promoted { get; set; } = new List<string>();
+        public int Popularity { get; set; }
         public List<Tag>? Tags { get; set; }
     }
 }

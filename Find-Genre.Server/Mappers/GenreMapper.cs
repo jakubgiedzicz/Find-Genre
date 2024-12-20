@@ -16,6 +16,7 @@ namespace Find_Genre.Server.Mappers
                 Tags = [],
                 Examples = createGenreDTO.Examples,
                 Promoted = createGenreDTO.Promoted,
+                Popularity = 0
             };
         }
         public static GenreShallowTagDTO FromGenreToGenreShallowDTO(this Genre genre)
@@ -28,6 +29,7 @@ namespace Find_Genre.Server.Mappers
                 Tags = genre.Tags.Select(g => new TagDTO { Id = g.Id, Name = g.Name }).ToList(),
                 Examples = genre.Examples,
                 Promoted = genre.Promoted,
+                Popularity = genre.Popularity
             };
         }
     }
