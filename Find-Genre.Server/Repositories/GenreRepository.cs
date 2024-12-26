@@ -68,6 +68,18 @@ namespace Find_Genre.Server.Repositories
             await context.SaveChangesAsync();
             return genre;
         }
+        public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
+        {
+            var tags = context.Tags.Where(g => tagIds.Contains(g.Id));
+            var genres = context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre)));
+            var genreDTO = new List<GenreShallowTagDTO>();
+            foreach (var item in genres)
+            {
+                genreDTO.Add(item.FromGenreToGenreShallowDTO());
+            }
+
+            return genreDTO;
+        }
         public async Task<Genre?> UpdateAsync(int id, CreateGenreDTO genreDTO)
         {
             var existing = await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(x => x.Id == id);

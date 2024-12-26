@@ -36,6 +36,16 @@ namespace Find_Genre.Server.Controllers
             var genreDTO = genre.FromGenreToGenreShallowDTO();
             return Ok(genreDTO);
         }
+        [HttpGet("/bytag")]
+        public async Task<IActionResult> GetByTags([FromQuery] List<int> tag)
+        {
+            var genres = await genreRepo.GetByTags(tag);
+            if (genres == null)
+            {
+                return NotFound();
+            }
+            return Ok(genres);
+        }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)
         {

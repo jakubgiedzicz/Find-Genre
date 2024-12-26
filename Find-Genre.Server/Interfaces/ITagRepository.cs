@@ -8,7 +8,6 @@ namespace Find_Genre.Server.Interfaces
     {
         Task<List<Tag>> GetAllAsync();
         Task<Tag> GetByIdAsync(int id);
-        Task<List<GenreShallowTagDTO>> GetByTags(List<int> tags);
         Task<Tag> CreateAsync(CreateTagDTO tagModel);
         Task<Tag?> UpdateAsync(int id, CreateTagDTO tag);
         Task<Tag?> DeleteAsync(int id);
