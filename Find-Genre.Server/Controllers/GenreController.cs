@@ -23,9 +23,8 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
-            var genreDTO = genres.Select(s => s.FromGenreToGenreShallowDTO());
 
-            return Ok(genreDTO);
+            return Ok(genres);
         }
 
         [HttpGet("{id:int}")]
@@ -34,7 +33,7 @@ namespace Find_Genre.Server.Controllers
             var genre = await genreRepo.GetByIdAsync(id);
             if (genre != null)
             {
-                return Ok(genre.FromGenreToGenreShallowDTO());
+                return Ok(genre);
             }
             else if (id <= 0)
             {

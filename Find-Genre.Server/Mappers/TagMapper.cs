@@ -31,5 +31,13 @@ namespace Find_Genre.Server.Mappers
                 Name = nameDTO.Name,
             };
         }
+        public static TagDTO FromTagToTagDTO(this Tag tag)
+        {
+            return new TagDTO
+            {
+                Id = tag.Id,
+                Name = tag.Name
+            };
+        }
     }
 }
