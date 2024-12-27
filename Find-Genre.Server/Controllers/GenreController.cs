@@ -2,7 +2,9 @@
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
+using Find_Genre.Server.Filters;
 using Microsoft.AspNetCore.Mvc;
+using Find_Genre.Server.DTO.Genre;
 
 namespace Find_Genre.Server.Controllers
 {
@@ -10,32 +12,39 @@ namespace Find_Genre.Server.Controllers
     [Route("/api/genre")]
     public class GenreController : ControllerBase
     {
-        private readonly IGenreRepository genreRepo;
+        public readonly IGenreRepository genreRepo;
 
         public GenreController(ApplicationDbContext context, IGenreRepository genreRepo)
         {
             this.genreRepo = genreRepo;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
             var genreDTO = genres.Select(s => s.FromGenreToGenreShallowDTO());
 
-
             return Ok(genreDTO);
         }
+
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var genre = await genreRepo.GetByIdAsync(id);
-            if(genre == null)
+            if (genre != null)
             {
-                return NotFound();
+                return Ok(genre.FromGenreToGenreShallowDTO());
             }
-            var genreDTO = genre.FromGenreToGenreShallowDTO();
-            return Ok(genreDTO);
+            else if (id <= 0)
+            {
+                return BadRequest("Requested Id is invalid");
+            } else
+            {
+                return NotFound("Genre not found");
+            }
         }
+
         [HttpGet("/bytag")]
         public async Task<IActionResult> GetByTags([FromQuery] List<int> tag)
         {

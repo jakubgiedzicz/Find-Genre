@@ -52,6 +52,11 @@ namespace Find_Genre.Server.Repositories
             return genreModel;
         }
 
+        public async Task<bool> GenreExists(int id)
+        {
+            return await context.Genres.AnyAsync(x => x.Id == id);
+        }
+
         public async Task<List<Genre>> GetAllAsync()
         {
             return await context.Genres.Include(g => g.Tags).ToListAsync();
@@ -59,19 +64,19 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre?> GetByIdAsync(int id)
         {
-            var genre = await context.Genres.Include(g => g.Tags).FirstAsync(g => g.Id == id);
-            if (genre == null)
+            var genre = await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(g => g.Id == id);
+
+            if (genre != null)
             {
-                return null;
+                genre.Popularity += 1;
+                await context.SaveChangesAsync();
             }
-            genre.Popularity += 1;
-            await context.SaveChangesAsync();
             return genre;
         }
         public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
         {
-            var tags = context.Tags.Where(g => tagIds.Contains(g.Id));
-            var genres = context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre)));
+            var tags = await context.Tags.Where(g => tagIds.Contains(g.Id)).ToListAsync();
+            var genres = await context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre))).ToListAsync();
             var genreDTO = new List<GenreShallowTagDTO>();
             foreach (var item in genres)
             {
