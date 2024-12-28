@@ -43,18 +43,16 @@ namespace Find_Genre.Server.Repositories
         public async Task<Genre?> DeleteAsync(int id)
         {
             var genreModel = await context.Genres.FirstOrDefaultAsync(x => x.Id == id);
+
             if (genreModel == null)
             {
                 return null;
             }
+
             context.Genres.Remove(genreModel);
             await context.SaveChangesAsync();
-            return genreModel;
-        }
 
-        public async Task<bool> GenreExists(int id)
-        {
-            return await context.Genres.AnyAsync(x => x.Id == id);
+            return genreModel;
         }
 
         public async Task<List<GenreShallowTagDTO>> GetAllAsync()
@@ -99,36 +97,73 @@ namespace Find_Genre.Server.Repositories
         }
         public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
         {
-            var tags = await context.Tags.Where(g => tagIds.Contains(g.Id)).ToListAsync();
-            var genres = await context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre))).ToListAsync();
+            
+            var genres = await context.Genres
+                .Include(t => t.Tags)
+                .Where(genre => tagIds.All(id => genre.Tags.Any(Tag => Tag.Id == id)))
+                .Select(g => new GenreShallowTagDTO
+                {
+                    Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
+                    Id = g.Id,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Examples = g.Examples,
+                    Popularity = g.Popularity,
+                    Promoted = g.Promoted
+                })
+                .ToListAsync();
             //var g1 = await context.Genres.Include(g => g.Tags).Where(genre => genre.Tags.All(x => tags.Contains(x))).ToListAsync();
             //var g2 = await context.Genres.Include(g => g.Tags).Where(genre => genre.Tags.All(tag => ).ToListAsync();
             //var genres = await context.Genres.Include(g => g.Tags).Where(b => tags.All(genre => b.Tags.Contains(genre))).ToListAsync();
             var genreDTO = new List<GenreShallowTagDTO>();
             foreach (var item in genres)
             {
-                genreDTO.Add(item.FromGenreToGenreShallowDTO());
+                genreDTO.Add(item);
             }
 
             return genreDTO;
         }
-        public async Task<Genre?> UpdateAsync(int id, CreateGenreDTO genreDTO)
+        public async Task<GenreShallowTagDTO?> UpdateAsync(int id, CreateGenreDTO genreDTO)
         {
-            var existing = await context.Genres.Include(g => g.Tags).FirstOrDefaultAsync(x => x.Id == id);
+            var existing = await context.Genres
+                .Include(g => g.Tags)
+                .Select(g => new GenreShallowTagDTO
+                {
+                    Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
+                    Id = g.Id,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Examples = g.Examples,
+                    Popularity = g.Popularity,
+                    Promoted = g.Promoted
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
+
             if (existing == null)
             {
                 return null;
             }
+
             existing.Name = genreDTO.Name;
             existing.Description = genreDTO.Description;
             existing.Tags?.Clear();
             existing.Promoted = genreDTO.Promoted;
             existing.Examples = genreDTO.Examples;
-            var tagList = await context.Tags.Where(t => genreDTO.TagId.Contains(t.Id)).ToListAsync();
+
+            var tagList = await context.Tags
+                .Where(t => genreDTO.TagId.Contains(t.Id))
+                .Select(t => new TagDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .ToListAsync();
+
             if (tagList.Count != genreDTO.TagId.Count)
             {
                 return null;
             }
+
             foreach (var item in genreDTO.TagId)
             {
                 existing.Tags.Add(tagList.First(t => t.Id == item));

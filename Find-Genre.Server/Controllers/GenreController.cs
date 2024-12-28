@@ -75,7 +75,7 @@ namespace Find_Genre.Server.Controllers
             {
               return NotFound();
             }
-            return Ok(genreModel.FromGenreToGenreShallowDTO());
+            return Ok(genreModel);
         }
         [HttpDelete]
         [Route("{id}")]
