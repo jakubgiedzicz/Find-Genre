@@ -157,6 +157,7 @@ namespace Find_Genre.Server.Repositories
                     Id = t.Id,
                     Name = t.Name
                 })
+                .AsNoTracking()
                 .ToListAsync();
 
             if (tagList.Count != genreDTO.TagId.Count)
@@ -168,6 +169,8 @@ namespace Find_Genre.Server.Repositories
             {
                 existing.Tags.Add(tagList.First(t => t.Id == item));
             }
+            context.Genres.Entry(existing.FromGenreShallowToGenre()).CurrentValues.SetValues(existing.FromGenreShallowToGenre());
+            context.Genres.Entry(existing.FromGenreShallowToGenre()).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return existing;
         }

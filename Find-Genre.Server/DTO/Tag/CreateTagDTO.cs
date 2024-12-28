@@ -2,7 +2,7 @@
 {
     public class CreateTagDTO
     {
-        public string Name { get; set; }
-        public List<int>? GenreId { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public List<int> GenreId { get; set; }
     }
 }

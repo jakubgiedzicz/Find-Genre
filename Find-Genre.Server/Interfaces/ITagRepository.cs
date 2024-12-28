@@ -6,10 +6,10 @@ namespace Find_Genre.Server.Interfaces
 {
     public interface ITagRepository
     {
-        Task<List<Tag>> GetAllAsync();
-        Task<Tag> GetByIdAsync(int id);
-        Task<Tag> CreateAsync(CreateTagDTO tagModel);
-        Task<Tag?> UpdateAsync(int id, CreateTagDTO tag);
+        Task<List<TagDTO>> GetAllAsync();
+        Task<TagDTO> GetByIdAsync(int id);
+        Task<Tag?> CreateAsync(CreateTagDTO tagModel);
+        Task<TagShallowGenreDTO?> UpdateAsync(int id, CreateTagDTO tag);
         Task<Tag?> DeleteAsync(int id);
     }
 }

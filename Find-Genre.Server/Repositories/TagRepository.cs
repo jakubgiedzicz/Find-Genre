@@ -18,15 +18,29 @@ namespace Find_Genre.Server.Repositories
         {
             this.context = context;
         }
-        public async Task<List<Tag>> GetAllAsync()
+        public async Task<List<TagDTO>> GetAllAsync()
         {
-            return await context.Tags.Include(t => t.Genres).ToListAsync();
+            return await context.Tags
+                .Include(t => t.Genres)
+                .Select(t => new TagDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .ToListAsync();
         }
-        public async Task<Tag> GetByIdAsync(int id)
+        public async Task<TagDTO> GetByIdAsync(int id)
         {
-            return await context.Tags.Include(g => g.Genres).FirstOrDefaultAsync(g => g.Id == id);
+            return await context.Tags
+                .Include(g => g.Genres)
+                .Select(t => new TagDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name
+                })
+                .FirstOrDefaultAsync(g => g.Id == id);
         }
-        public async Task<Tag> CreateAsync(CreateTagDTO tagModel)
+        public async Task<Tag?> CreateAsync(CreateTagDTO tagModel)
         {
             var tag = tagModel.FromCreateTagDTO();
             var genres = await context.Genres.Where(g => tagModel.GenreId.Contains(g.Id)).ToListAsync();
@@ -47,19 +61,36 @@ namespace Find_Genre.Server.Repositories
             await context.SaveChangesAsync();
             return tag;
         }
-        public async Task<Tag?> UpdateAsync(int id, CreateTagDTO tagDTO)
+        public async Task<TagShallowGenreDTO?> UpdateAsync(int id, CreateTagDTO tagDTO)
         {
-            var existing = await context.Tags.Include(g => g.Genres).FirstOrDefaultAsync(x => x.Id == id);
+            var existing = await context.Tags
+                .Include(g => g.Genres)
+                .Select(t => new TagShallowGenreDTO
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    Genres = t.Genres.Select(g => g.FromGenreToGenreDTO()).ToList()
+                })
+                .FirstOrDefaultAsync(x => x.Id == id);
             if (existing == null)
             {
                 return null;
             }
-            var name = await context.Tags.Where(t => t.Name.ToLower().Contains(tagDTO.Name.ToLower())).FirstOrDefaultAsync();
+            var name = await context.Tags
+                .Where(t => t.Name.ToLower()
+                .Contains(tagDTO.Name.ToLower()))
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (name != null)
             {
                 return null;
             }
-            var genres = await context.Genres.Where(g => tagDTO.GenreId.Contains(g.Id)).ToListAsync();
+            var genres = await context.Genres.
+                Where(g => tagDTO.GenreId.Contains(g.Id))
+                .AsNoTracking()
+                .ToListAsync();
+
             if (genres.Count != tagDTO.GenreId.Count)
             {
                 return null;
@@ -68,8 +99,10 @@ namespace Find_Genre.Server.Repositories
             existing.Genres.Clear();
             foreach (var item in genres)
             {
-                existing.Genres.Add(item);
+                existing.Genres.Add(item.FromGenreToGenreDTO());
             }
+            context.Tags.Entry(existing.FromTagShallowToTag()).CurrentValues.SetValues(existing.FromTagShallowToTag());
+            context.Tags.Entry(existing.FromTagShallowToTag()).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return existing;
         }

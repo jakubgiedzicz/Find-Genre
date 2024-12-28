@@ -23,9 +23,8 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var tags = await tagRepo.GetAllAsync();
-            var tagDTO = tags.Select(s => s.FromTagToTagShallowDTO());
 
-            return Ok(tagDTO);
+            return Ok(tags);
         }
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
@@ -35,8 +34,7 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             }
-            var tagDTO = tag.FromTagToTagShallowDTO();
-            return Ok(tagDTO);
+            return Ok(tag);
         }
         [HttpPost]
         public async Task <IActionResult> Create([FromBody] CreateTagDTO tagDTO)
@@ -57,7 +55,7 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             }
-            return Ok(tagModel.FromTagToTagShallowDTO());
+            return Ok(tagModel);
         }
         [HttpDelete]
         [Route("{id}")]
