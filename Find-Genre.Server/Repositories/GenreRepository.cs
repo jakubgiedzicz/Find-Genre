@@ -57,24 +57,38 @@ namespace Find_Genre.Server.Repositories
             return await context.Genres.AnyAsync(x => x.Id == id);
         }
 
-        public async Task<List<Genre>> GetAllAsync()
+        public async Task<List<GenreShallowTagDTO>> GetAllAsync()
         {
-            return await context.Genres.Include(g => g.Tags).ToListAsync();
+            return await context.Genres
+                .Include(g => g.Tags)
+                .Select(g => new GenreShallowTagDTO
+                {
+                    Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
+                    Id = g.Id,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Examples = g.Examples,
+                    Popularity = g.Popularity,
+                    Promoted = g.Promoted
+                })
+                .ToListAsync();
         }
 
         public async Task<GenreShallowTagDTO?> GetByIdAsync(int id)
         {
-            var genre = await context.Genres.Include(g => g.Tags).Select(g => new GenreShallowTagDTO
+            var genre = await context.Genres
+                .Include(g => g.Tags)
+                .Select(g => new GenreShallowTagDTO
             {
-                Tags = g.Tags.Select(t => new TagDTO { Id = t.Id, Name = t.Name }).ToList(),
+                Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
                 Id = g.Id,
                 Name = g.Name,
                 Description = g.Description,
                 Examples = g.Examples,
                 Popularity = g.Popularity,
                 Promoted = g.Promoted
-                
-            }).FirstOrDefaultAsync(g => g.Id == id);
+            })
+                .FirstOrDefaultAsync(g => g.Id == id);
 
             if (genre != null)
             {

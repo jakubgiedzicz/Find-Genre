@@ -30,15 +30,17 @@ namespace Find_Genre.Server.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (id <= 0)
+            {
+                return BadRequest("Requested Id is invalid");
+            }
             var genre = await genreRepo.GetByIdAsync(id);
+
             if (genre != null)
             {
                 return Ok(genre);
             }
-            else if (id <= 0)
-            {
-                return BadRequest("Requested Id is invalid");
-            } else
+            else 
             {
                 return NotFound("Genre not found");
             }

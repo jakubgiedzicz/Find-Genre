@@ -7,7 +7,7 @@ namespace Find_Genre.Server.Interfaces
     public interface IGenreRepository
     {
         Task<bool> GenreExists(int id);
-        Task<List<Genre>> GetAllAsync();
+        Task<List<GenreShallowTagDTO>> GetAllAsync();
         Task<GenreShallowTagDTO?> GetByIdAsync(int id);
         Task<List<GenreShallowTagDTO>> GetByTags(List<int> tags);
         Task<Genre> CreateAsync(CreateGenreDTO genreModel);

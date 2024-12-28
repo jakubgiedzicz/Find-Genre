@@ -26,7 +26,7 @@ namespace Find_Genre.Server.Mappers
                 Id = genre.Id,
                 Name = genre.Name,
                 Description = genre.Description,
-                Tags = genre.Tags.Select(g => new TagDTO { Id = g.Id, Name = g.Name }).ToList(),
+                Tags = genre.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
                 Examples = genre.Examples,
                 Promoted = genre.Promoted,
                 Popularity = genre.Popularity
