@@ -25,19 +25,27 @@ namespace Find_Genre.Server.Repositories
                 return null;
             }
             var genre = genreModel.FromCreateGenreDTO();
-            var tagList = await context.Tags.Where(t => genreModel.TagId.Contains(t.Id)).ToListAsync();
-            if (tagList.Count != genreModel.TagId.Count)
-            {
-                return null;
-            }
             var existing = await context.Genres.Where(g => g.Name.ToLower().Contains(genreModel.Name.ToLower())).FirstOrDefaultAsync();
             if (existing != null)
             {
                 return null;
             }
+            var tagList = await context.Tags.Where(t => genreModel.TagId.Contains(t.Id)).ToListAsync();
+            if (tagList.Count != genreModel.TagId.Count)
+            {
+                return null;
+            }
             foreach (var item in tagList)
             {
-                genre.Tags.Add(item);
+                genre.Tags?.Add(item);
+            }
+            if (genreModel.ParentGenresId != null)
+            {
+                var genreList = await context.Genres.Where(g => genreModel.ParentGenresId.Contains(g.Id)).ToListAsync();
+                foreach (var item in genreList)
+                {
+                    item.Subgenres?.Add(genre);
+                }
             }
             await context.Genres.AddAsync(genre);
             await context.SaveChangesAsync();
@@ -63,6 +71,7 @@ namespace Find_Genre.Server.Repositories
         {
             return await context.Genres
                 .Include(g => g.Tags)
+                .Include(g => g.Subgenres)
                 .Select(g => new GenreShallowTagDTO
                 {
                     Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
@@ -71,7 +80,8 @@ namespace Find_Genre.Server.Repositories
                     Description = g.Description,
                     Examples = g.Examples,
                     Popularity = g.Popularity,
-                    Promoted = g.Promoted
+                    Promoted = g.Promoted,
+                    Subgenres = g.Subgenres.Select(g => g.FromGenreToGenreDTO()).ToList()
                 })
                 .ToListAsync();
         }

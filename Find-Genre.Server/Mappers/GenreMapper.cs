@@ -13,7 +13,8 @@ namespace Find_Genre.Server.Mappers
             {
                 Name = createGenreDTO.Name,
                 Description = createGenreDTO.Description,
-                Tags = [],
+                Tags = new List<Tag>(),
+                ParentGenresId = new List<int>(),
                 Examples = createGenreDTO.Examples,
                 Promoted = createGenreDTO.Promoted,
                 Popularity = 0

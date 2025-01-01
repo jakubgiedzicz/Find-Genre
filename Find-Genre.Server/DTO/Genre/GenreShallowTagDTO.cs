@@ -11,5 +11,6 @@ namespace Find_Genre.Server.DTO.Genre
         public List<string> Promoted { get; set; } = new List<string>();
         public int Popularity { get; set; }
         public List<TagDTO>? Tags { get; set; }
+        public List<GenreDTO>? Subgenres { get; set; }
     }
 }
