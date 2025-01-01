@@ -26,7 +26,6 @@ namespace Find_Genre.Server.Controllers
 
             return Ok(genres);
         }
-
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {

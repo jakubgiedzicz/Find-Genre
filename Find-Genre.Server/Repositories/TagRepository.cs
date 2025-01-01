@@ -43,20 +43,24 @@ namespace Find_Genre.Server.Repositories
         public async Task<Tag?> CreateAsync(CreateTagDTO tagModel)
         {
             var tag = tagModel.FromCreateTagDTO();
-            var genres = await context.Genres.Where(g => tagModel.GenreId.Contains(g.Id)).ToListAsync();
-            if (genres.Count != tagModel.GenreId.Count)
-            {
-                return null;
-            }
             var existing = await context.Tags.Where(t => t.Name.ToLower().Contains(tagModel.Name.ToLower())).FirstOrDefaultAsync();
             if (existing != null)
             {
                 return null;
             }
-            foreach (var item in genres)
-            {
-                tag.Genres.Add(item);
+            if (tagModel.GenreId.Count != 0) {
+                var genres = await context.Genres.Where(g => tagModel.GenreId.Contains(g.Id)).ToListAsync();
+                if (genres.Count != tagModel.GenreId.Count)
+                {
+                    return null;
+                }
+
+                foreach (var item in genres)
+                {
+                    tag.Genres?.Add(item);
+                }
             }
+            
             await context.Tags.AddAsync(tag);
             await context.SaveChangesAsync();
             return tag;

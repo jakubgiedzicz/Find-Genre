@@ -20,6 +20,10 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre> CreateAsync(CreateGenreDTO genreModel)
         {
+            if(genreModel.TagId == null)
+            {
+                return null;
+            }
             var genre = genreModel.FromCreateGenreDTO();
             var tagList = await context.Tags.Where(t => genreModel.TagId.Contains(t.Id)).ToListAsync();
             if (tagList.Count != genreModel.TagId.Count)
