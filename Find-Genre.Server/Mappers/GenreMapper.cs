@@ -54,5 +54,18 @@ namespace Find_Genre.Server.Mappers
                 Tags = genre.Tags?.Select(t => new Tag { Id = t.Id, Name = t.Name, Genres = [] }).ToList()
             };
         }
+        public static Subgenre FromGenreToSubgenre(this Genre subgenre)
+        {
+            return new Subgenre
+            {
+                Description = subgenre.Description,
+                Examples = subgenre.Examples,
+                Id = subgenre.Id,
+                Name = subgenre.Name,
+                Popularity = subgenre.Popularity,
+                Promoted = subgenre.Promoted,
+                Tags = subgenre?.Tags?.Select(t => new TagDTO { Id = t.Id, Name = t.Name }).ToList()
+            };
+        }
     }
 }

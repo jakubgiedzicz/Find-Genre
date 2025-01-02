@@ -27,22 +27,16 @@ namespace Find_Genre.Server.Controllers
             return Ok(genres);
         }
         [HttpGet("{id:int}")]
+        [Genre_ValidateGenreIdFilter]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            if (id <= 0)
-            {
-                return BadRequest("Requested Id is invalid");
-            }
             var genre = await genreRepo.GetByIdAsync(id);
+            if (genre == null)
+            {
+                ModelState.AddModelError("Genre", "Specified genre not found");
 
-            if (genre != null)
-            {
-                return Ok(genre);
             }
-            else 
-            {
-                return NotFound("Genre not found");
-            }
+            return Ok(genre);            
         }
 
         [HttpGet("/bytag")]

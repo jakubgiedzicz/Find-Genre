@@ -1,9 +1,8 @@
 ﻿using Find_Genre.Server.DTO.Tag;
-using Find_Genre.Server.Models;
 
-namespace Find_Genre.Server.DTO.Genre
+namespace Find_Genre.Server.Models
 {
-    public class GenreShallowTagDTO
+    public class Subgenre
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -12,6 +11,5 @@ namespace Find_Genre.Server.DTO.Genre
         public List<string> Promoted { get; set; } = new List<string>();
         public int Popularity { get; set; }
         public List<TagDTO>? Tags { get; set; }
-        public List<Subgenre>? Subgenres { get; set; }
     }
 }

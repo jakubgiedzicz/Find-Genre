@@ -4,7 +4,6 @@ using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Repositories
@@ -81,12 +80,12 @@ namespace Find_Genre.Server.Repositories
                     Examples = g.Examples,
                     Popularity = g.Popularity,
                     Promoted = g.Promoted,
-                    Subgenres = g.Subgenres.Select(g => g.FromGenreToGenreDTO()).ToList()
+                    Subgenres = g.Subgenres.Select(g => g.FromGenreToSubgenre()).ToList()
                 })
                 .ToListAsync();
         }
 
-        public async Task<GenreShallowTagDTO?> GetByIdAsync(int id)
+        public async Task<GenreShallowTagDTO> GetByIdAsync(int id)
         {
             var genre = await context.Genres
                 .Include(g => g.Tags)
@@ -101,12 +100,6 @@ namespace Find_Genre.Server.Repositories
                 Promoted = g.Promoted
             })
                 .FirstOrDefaultAsync(g => g.Id == id);
-
-            if (genre != null)
-            {
-                genre.Popularity += 1;
-                await context.SaveChangesAsync();
-            }
             return genre;
         }
         public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
