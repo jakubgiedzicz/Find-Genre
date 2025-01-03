@@ -1,5 +1,4 @@
-﻿using Find_Genre.Server.DTO.Tag;
-namespace Find_Genre.Server.Models
+﻿namespace Find_Genre.Server.Models
 {
     public class CreateGenreDTO
     {
@@ -7,7 +6,7 @@ namespace Find_Genre.Server.Models
         public string Description { get; set; } = string.Empty;
         public List<string> Examples { get; set; } = new List<string>();
         public List<string> Promoted { get; set; } = new List<string>();
-        public List<int>? TagsId { get; set; }
-        public List<int>? ParentGenresId { get; set; }
+        public List<int>? TagsId { get; set; } = new List<int>();
+        public List<int>? ParentGenresId { get; set; } = new List<int>();
     }
 }

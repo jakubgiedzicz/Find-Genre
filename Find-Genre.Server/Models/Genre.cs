@@ -11,7 +11,7 @@ namespace Find_Genre.Server.Models
         public List<string> Examples { get; set; } = new List<string>();
         public List<string> Promoted { get; set; } = new List<string>();
         public int Popularity { get; set; }
-        public List<Tag>? Tags { get; set; }
+        public List<Tag>? Tags { get; set; } = new List<Tag>();
         public List<Genre>? ParentGenres { get; set; } = new List<Genre>();
         public List<Genre>? Subgenres { get; set; } = new List<Genre>();
     }

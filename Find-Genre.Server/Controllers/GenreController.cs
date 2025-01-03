@@ -23,8 +23,12 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var genres = await genreRepo.GetAllAsync();
-
-            return Ok(genres);
+            var genreDto = new List<GenreShallowTagDTO>();
+            foreach (var item in genres)
+            {
+                genreDto.Add(item.FromGenreToGenreShallowDTO());
+            }
+            return Ok(genreDto);
         }
         [HttpGet("{id:int}")]
         [Genre_ValidateGenreIdFilter]
@@ -44,11 +48,12 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetByTags([FromQuery] List<int> tag)
         {
             var genres = await genreRepo.GetByTags(tag);
-            if (genres == null)
+            var genreDTO = new List<GenreShallowTagDTO>();
+            foreach (var item in genres!)
             {
-                ModelState.AddModelError("Genre", "Specified genre not found");
+                genreDTO.Add(item.FromGenreToGenreShallowDTO());
             }
-            return Ok(genres);
+            return Ok(genreDTO);
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateGenreDTO genreDTO)

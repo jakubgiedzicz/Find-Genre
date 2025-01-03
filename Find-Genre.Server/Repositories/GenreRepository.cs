@@ -48,10 +48,14 @@ namespace Find_Genre.Server.Repositories
             {
                 var genreList = await context.Genres
                     .Where(g => genreModel.ParentGenresId.Contains(g.GenreId))
+                    .Include(g => g.Subgenres)
                     .ToListAsync();
                 foreach (var item in genreList)
                 {
-                    item.Subgenres?.Add(genre);
+                    if (!item.Subgenres!.Contains(genre))
+                    {
+                        item.Subgenres?.Add(genre);
+                    }
                 }
             }
             await context.Genres.AddAsync(genre);
@@ -74,23 +78,13 @@ namespace Find_Genre.Server.Repositories
             return genreModel;
         }
 
-        public async Task<List<GenreShallowTagDTO>> GetAllAsync()
+        public async Task<List<Genre>> GetAllAsync()
         {
             return await context.Genres
                 .Include(g => g.Tags)
-                .Include(g => g.Subgenres)
+                .Include(g => g.Subgenres!)
+                .ThenInclude(g => g.Tags)
                 .AsSplitQuery()
-                .Select(g => new GenreShallowTagDTO
-                {
-                    Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
-                    GenreId = g.GenreId,
-                    Name = g.Name,
-                    Description = g.Description,
-                    Examples = g.Examples,
-                    Popularity = g.Popularity,
-                    Promoted = g.Promoted,
-                    Subgenres = g.Subgenres.Select(g => g.FromGenreToSubgenre()).ToList()
-                })
                 .ToListAsync();
         }
 
@@ -98,36 +92,22 @@ namespace Find_Genre.Server.Repositories
         {
             var genre = await context.Genres
                 .Include(g => g.Tags)
-                .Include(g => g.Subgenres)
+                .Include(g => g.Subgenres!)
+                .ThenInclude(g => g.Tags)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(g => g.GenreId == id);
             return genre;
         }
-        public async Task<List<GenreShallowTagDTO>> GetByTags(List<int> tagIds)
+        public async Task<List<Genre>> GetByTags(List<int> tagIds)
         {
             var genres = await context.Genres
                 .Include(t => t.Tags)
-                .Include(s => s.Subgenres)
+                .Include(s => s.Subgenres!)
+                .ThenInclude(t => t.Tags)
                 .AsSplitQuery()
-                .Where(genre => tagIds.All(id => genre.Tags.Any(Tag => Tag.TagId == id)))
-                .Select(g => new GenreShallowTagDTO
-                {
-                    Tags = g.Tags.Select(t => t.FromTagToTagDTO()).ToList(),
-                    GenreId = g.GenreId,
-                    Name = g.Name,
-                    Description = g.Description,
-                    Examples = g.Examples,
-                    Popularity = g.Popularity,
-                    Promoted = g.Promoted,
-                    Subgenres = g.Subgenres.Select(s => s.FromGenreToSubgenre()).ToList()
-                })
+                .Where(genre => tagIds.All(id => genre.Tags!.Any(Tag => Tag.TagId == id)))
                 .ToListAsync();
-            var genreDTO = new List<GenreShallowTagDTO>();
-            foreach (var item in genres)
-            {
-                genreDTO.Add(item);
-            }
-            return genreDTO;
+            return genres;
         }
         public async Task<Genre?> UpdateAsync(int id, CreateGenreDTO genreDTO)
         {
