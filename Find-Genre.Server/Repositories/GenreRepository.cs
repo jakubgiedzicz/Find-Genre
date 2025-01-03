@@ -1,12 +1,8 @@
-﻿using Azure;
-using Find_Genre.Server.Data;
-using Find_Genre.Server.DTO.Genre;
-using Find_Genre.Server.DTO.Tag;
+﻿using Find_Genre.Server.Data;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Find_Genre.Server.Repositories
 {
@@ -118,24 +114,24 @@ namespace Find_Genre.Server.Repositories
             }
             existing.Name = genreDTO.Name;
             existing.Description = genreDTO.Description;
-            var tagListIds = genreDTO.TagsId.ToList();
-            foreach (var tag in existing.Tags.ToList())
+            var tagListIds = genreDTO.TagsId?.ToList();
+            foreach (var tag in existing.Tags!.ToList())
             {
-                if (genreDTO.TagsId.Contains(tag.TagId))
+                if (genreDTO.TagsId!.Contains(tag.TagId))
                 {
-                    existing.Tags.Remove(tag);
+                    existing.Tags?.Remove(tag);
                 }
-                tagListIds.RemoveAll(r => r == tag.TagId);
+                tagListIds?.RemoveAll(r => r == tag.TagId);
             }
             existing.Promoted = genreDTO.Promoted;
             existing.Examples = genreDTO.Examples;
             
             var tagList = await context.Tags
-                .Where(t => tagListIds.Contains(t.TagId))
+                .Where(t => tagListIds!.Contains(t.TagId))
                 .ToListAsync();
-            foreach (var item in tagListIds)
+            foreach (var item in tagListIds!)
             {
-                existing.Tags.Add(tagList.First(t => t.TagId == item));
+                existing.Tags?.Add(tagList.First(t => t.TagId == item));
             }
             if (genreDTO.ParentGenresId != null)
             {
