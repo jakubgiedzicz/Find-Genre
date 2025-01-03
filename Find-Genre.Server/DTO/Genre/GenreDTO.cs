@@ -5,7 +5,7 @@ namespace Find_Genre.Server.DTO.Genre
 {
     public class GenreDTO
     {
-        public int Id { get; set; }
+        public int GenreId { get; set; }
         public string Name { get; set; } = string.Empty;
     }
 }

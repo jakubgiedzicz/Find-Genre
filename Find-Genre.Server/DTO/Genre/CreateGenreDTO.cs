@@ -7,7 +7,7 @@ namespace Find_Genre.Server.Models
         public string Description { get; set; } = string.Empty;
         public List<string> Examples { get; set; } = new List<string>();
         public List<string> Promoted { get; set; } = new List<string>();
-        public List<int>? TagId { get; set; }
+        public List<int>? TagsId { get; set; }
         public List<int>? ParentGenresId { get; set; }
     }
 }

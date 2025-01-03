@@ -24,7 +24,7 @@ namespace Find_Genre.Server.Repositories
                 .Include(t => t.Genres)
                 .Select(t => new TagDTO
                 {
-                    Id = t.Id,
+                    TagId = t.TagId,
                     Name = t.Name
                 })
                 .ToListAsync();
@@ -35,10 +35,10 @@ namespace Find_Genre.Server.Repositories
                 .Include(g => g.Genres)
                 .Select(t => new TagDTO
                 {
-                    Id = t.Id,
+                    TagId = t.TagId,
                     Name = t.Name
                 })
-                .FirstOrDefaultAsync(g => g.Id == id);
+                .FirstOrDefaultAsync(g => g.TagId == id);
         }
         public async Task<Tag?> CreateAsync(CreateTagDTO tagModel)
         {
@@ -48,9 +48,9 @@ namespace Find_Genre.Server.Repositories
             {
                 return null;
             }
-            if (tagModel.GenreId.Count != 0) {
-                var genres = await context.Genres.Where(g => tagModel.GenreId.Contains(g.Id)).ToListAsync();
-                if (genres.Count != tagModel.GenreId.Count)
+            if (tagModel.GenreIds.Count != 0) {
+                var genres = await context.Genres.Where(g => tagModel.GenreIds.Contains(g.GenreId)).ToListAsync();
+                if (genres.Count != tagModel.GenreIds.Count)
                 {
                     return null;
                 }
@@ -71,11 +71,11 @@ namespace Find_Genre.Server.Repositories
                 .Include(g => g.Genres)
                 .Select(t => new TagShallowGenreDTO
                 {
-                    Id = t.Id,
+                    TagId = t.TagId,
                     Name = t.Name,
                     Genres = t.Genres.Select(g => g.FromGenreToGenreDTO()).ToList()
                 })
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.TagId == id);
             if (existing == null)
             {
                 return null;
@@ -91,11 +91,11 @@ namespace Find_Genre.Server.Repositories
                 return null;
             }
             var genres = await context.Genres.
-                Where(g => tagDTO.GenreId.Contains(g.Id))
+                Where(g => tagDTO.GenreIds.Contains(g.GenreId))
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (genres.Count != tagDTO.GenreId.Count)
+            if (genres.Count != tagDTO.GenreIds.Count)
             {
                 return null;
             }
@@ -113,7 +113,7 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Tag?> DeleteAsync(int id)
         {
-            var tagModel = await context.Tags.FirstOrDefaultAsync(x => x.Id == id);
+            var tagModel = await context.Tags.FirstOrDefaultAsync(x => x.TagId == id);
             if (tagModel == null)
             {
                 return null;

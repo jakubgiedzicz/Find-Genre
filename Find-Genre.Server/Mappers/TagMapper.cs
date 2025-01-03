@@ -11,18 +11,18 @@ namespace Find_Genre.Server.Mappers
         {
             return new TagShallowGenreDTO
             {
-                Id = tagModel.Id,
+                TagId = tagModel.TagId,
                 Name = tagModel.Name,
-                Genres = tagModel.Genres?.Select(g => new GenreDTO { Id = g.Id, Name = g.Name }).ToList()
+                Genres = tagModel.Genres?.Select(g => new GenreDTO { GenreId = g.GenreId, Name = g.Name }).ToList()
             };
         }
         public static Tag FromTagShallowToTag(this TagShallowGenreDTO tagModel)
         {
             return new Tag
             {
-                Id = tagModel.Id,
+                TagId = tagModel.TagId,
                 Name = tagModel.Name,
-                Genres = tagModel.Genres?.Select(g => new Genre { Id = g.Id, Name = g.Name }).ToList()
+                Genres = tagModel.Genres?.Select(g => new Genre { GenreId = g.GenreId, Name = g.Name }).ToList()
             };
         }
         public static Tag FromCreateTagDTO(this CreateTagDTO createTagDTO)
@@ -37,8 +37,17 @@ namespace Find_Genre.Server.Mappers
         {
             return new TagDTO
             {
-                Id = tag.Id,
+                TagId = tag.TagId,
                 Name = tag.Name
+            };
+        }
+        public static Tag FromTagDTOToTag(this TagDTO tag)
+        {
+            return new Tag
+            {
+                TagId = tag.TagId,
+                Name = tag.Name,
+                Genres = []
             };
         }
     }

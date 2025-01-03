@@ -1,5 +1,4 @@
-﻿using Find_Genre.Server.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Find_Genre.Server.Filters

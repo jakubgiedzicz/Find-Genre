@@ -36,16 +36,17 @@ namespace Find_Genre.Server.Controllers
                 ModelState.AddModelError("Genre", "Specified genre not found");
 
             }
-            return Ok(genre);            
+            return Ok(genre?.FromGenreToGenreShallowDTO());            
         }
 
         [HttpGet("/bytag")]
+        [Genre_ValidateGenreIdListFilter]
         public async Task<IActionResult> GetByTags([FromQuery] List<int> tag)
         {
             var genres = await genreRepo.GetByTags(tag);
             if (genres == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Genre", "Specified genre not found");
             }
             return Ok(genres);
         }
@@ -57,28 +58,30 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             }
-            return CreatedAtAction(nameof(GetById), new { id = genre.Id }, genre.FromGenreToGenreShallowDTO());
+            return CreatedAtAction(nameof(GetById), new { id = genre.GenreId }, genre.FromGenreToGenreShallowDTO());
         }
         [HttpPut]
         [Route("{id}")]
+        [Genre_ValidateGenreIdFilter]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateGenreDTO updateDTO)
         {
             var genreModel = await genreRepo.UpdateAsync(id, updateDTO);
             if (genreModel == null)
             {
-              return NotFound();
+                ModelState.AddModelError("Genre", "Specified genre not found");
             }
             return Ok(genreModel);
         }
         [HttpDelete]
         [Route("{id}")]
+        [Genre_ValidateGenreIdFilter]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var genreModel = await genreRepo.DeleteAsync(id);
 
             if (genreModel == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Genre", "Specified genre not found");
             }
 
             return NoContent();

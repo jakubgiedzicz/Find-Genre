@@ -14,7 +14,6 @@ namespace Find_Genre.Server.Mappers
                 Name = createGenreDTO.Name,
                 Description = createGenreDTO.Description,
                 Tags = new List<Tag>(),
-                ParentGenresId = new List<int>(),
                 Examples = createGenreDTO.Examples,
                 Promoted = createGenreDTO.Promoted,
                 Popularity = 0
@@ -24,20 +23,21 @@ namespace Find_Genre.Server.Mappers
         {
             return new GenreShallowTagDTO
             {
-                Id = genre.Id,
+                GenreId = genre.GenreId,
                 Name = genre.Name,
                 Description = genre.Description,
                 Tags = genre.Tags?.Select(t => t.FromTagToTagDTO()).ToList(),
                 Examples = genre.Examples,
                 Promoted = genre.Promoted,
-                Popularity = genre.Popularity
+                Popularity = genre.Popularity,
+                Subgenres = genre.Subgenres?.Select(t => t.FromGenreToSubgenre()).ToList()
             };
         }
         public static GenreDTO FromGenreToGenreDTO(this Genre genre)
         {
             return new GenreDTO
             {
-                Id = genre.Id,
+                GenreId = genre.GenreId,
                 Name = genre.Name
             };
         }
@@ -45,13 +45,39 @@ namespace Find_Genre.Server.Mappers
         {
             return new Genre
             {
+                GenreId = genre.GenreId,
+                Name = genre.Name,
                 Description = genre.Description,
                 Examples = genre.Examples,
-                Id = genre.Id,
+                Promoted = genre.Promoted,
+                Popularity = genre.Popularity,
+                Tags = genre.Tags?.Select(t => t.FromTagDTOToTag()).ToList(),
+                ParentGenres = [],
+                Subgenres = []
+            };
+        }
+        public static Genre FromGenreShallowNoTagToGenre(this GenreShallowNoTagDTO genre)
+        {
+            return new Genre
+            {
+                Description = genre.Description,
+                Examples = genre.Examples,
+                GenreId = genre.GenreId,
                 Name = genre.Name,
                 Popularity = genre.Popularity,
-                Promoted = genre.Promoted,
-                Tags = genre.Tags?.Select(t => new Tag { Id = t.Id, Name = t.Name, Genres = [] }).ToList()
+                Promoted = genre.Promoted
+            };
+        }
+        public static Genre FromGenreShallowNoTagToGenreShallow(this GenreShallowNoTagDTO genre)
+        {
+            return new Genre
+            {
+                Description = genre.Description,
+                Examples = genre.Examples,
+                GenreId = genre.GenreId,
+                Name = genre.Name,
+                Popularity = genre.Popularity,
+                Promoted = genre.Promoted
             };
         }
         public static Subgenre FromGenreToSubgenre(this Genre subgenre)
@@ -60,11 +86,11 @@ namespace Find_Genre.Server.Mappers
             {
                 Description = subgenre.Description,
                 Examples = subgenre.Examples,
-                Id = subgenre.Id,
+                SubgenreId = subgenre.GenreId,
                 Name = subgenre.Name,
                 Popularity = subgenre.Popularity,
                 Promoted = subgenre.Promoted,
-                Tags = subgenre?.Tags?.Select(t => new TagDTO { Id = t.Id, Name = t.Name }).ToList()
+                Tags = subgenre?.Tags?.Select(t => t.FromTagToTagDTO()).ToList()
             };
         }
     }
