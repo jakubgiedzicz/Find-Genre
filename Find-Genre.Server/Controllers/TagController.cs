@@ -44,7 +44,7 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             };
-            return CreatedAtAction(nameof(GetById), new { id = tag.Id }, tag.FromTagToTagShallowDTO());
+            return CreatedAtAction(nameof(GetById), new { id = tag.TagId }, tag.FromTagToTagShallowDTO());
         }
         [HttpPut]
         [Route("{id}")]

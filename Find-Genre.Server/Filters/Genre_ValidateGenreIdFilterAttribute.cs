@@ -1,34 +1,32 @@
-﻿using Find_Genre.Server.Repositories;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Find_Genre.Server.Filters
 {
     public class Genre_ValidateGenreIdFilterAttribute : ActionFilterAttribute
     {
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             var genreId = context.ActionArguments["id"] as int?;
             if (genreId <= 0)
             {
                 context.ModelState.AddModelError("Id", "Genre Id is invalid");
-                context.Result = new BadRequestObjectResult(context.ModelState);
-            } else
-            {
-                await next();
-                if (context.Result == null)
+                var details = new ValidationProblemDetails(context.ModelState)
                 {
-                    context.ModelState.AddModelError("Id", "Genre does not exist");
-                    context.Result = new NotFoundObjectResult(context.ModelState);
-                }
+                    Status = StatusCodes.Status400BadRequest
+                };
+                context.Result = new BadRequestObjectResult(details);
             }
         }
-        public override void OnResultExecuted(ResultExecutedContext context)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
-            base.OnResultExecuted(context);
-            if (context.Result == null)
+            if (!context.ModelState.IsValid)
             {
-                context.ModelState.AddModelError("Id", "Genre does not exist");
+                var details = new ValidationProblemDetails(context.ModelState)
+                {
+                    Status = StatusCodes.Status404NotFound
+                };
+                context.Result = new NotFoundObjectResult(details);   
             }
         }
     }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241123105521_manytomany")]
-    partial class manytomany
+    [Migration("20241230205219_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,18 @@ namespace Find_Genre.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Examples")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Popularity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Promoted")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

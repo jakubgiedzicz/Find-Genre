@@ -3,6 +3,7 @@ using Find_Genre.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250101183629_SubgenresNull")]
+    partial class SubgenresNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,11 +26,11 @@ namespace Find_Genre.Server.Migrations
 
             modelBuilder.Entity("Find_Genre.Server.Models.Genre", b =>
                 {
-                    b.Property<int>("GenreId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -41,6 +44,9 @@ namespace Find_Genre.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParentGenresId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Popularity")
                         .HasColumnType("int");
 
@@ -48,54 +54,54 @@ namespace Find_Genre.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GenreId");
+                    b.HasKey("Id");
 
                     b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("Find_Genre.Server.Models.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TagId");
+                    b.HasKey("Id");
 
                     b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("GenreGenre", b =>
                 {
-                    b.Property<int>("ParentGenresGenreId")
+                    b.Property<int>("ParentGenresId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubgenresGenreId")
+                    b.Property<int>("SubgenresId")
                         .HasColumnType("int");
 
-                    b.HasKey("ParentGenresGenreId", "SubgenresGenreId");
+                    b.HasKey("ParentGenresId", "SubgenresId");
 
-                    b.HasIndex("SubgenresGenreId");
+                    b.HasIndex("SubgenresId");
 
                     b.ToTable("GenreGenre");
                 });
 
             modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.Property<int>("GenresGenreId")
+                    b.Property<int>("GenresId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsTagId")
+                    b.Property<int>("TagsId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreId", "TagsTagId");
+                    b.HasKey("GenresId", "TagsId");
 
-                    b.HasIndex("TagsTagId");
+                    b.HasIndex("TagsId");
 
                     b.ToTable("GenreTag");
                 });
@@ -104,13 +110,13 @@ namespace Find_Genre.Server.Migrations
                 {
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("ParentGenresGenreId")
+                        .HasForeignKey("ParentGenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("SubgenresGenreId")
+                        .HasForeignKey("SubgenresId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
@@ -119,13 +125,13 @@ namespace Find_Genre.Server.Migrations
                 {
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreId")
+                        .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Find_Genre.Server.Models.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsTagId")
+                        .HasForeignKey("TagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

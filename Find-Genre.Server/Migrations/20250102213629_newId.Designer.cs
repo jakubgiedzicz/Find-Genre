@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Find_Genre.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241209103818_examples")]
-    partial class examples
+    [Migration("20250102213629_newId")]
+    partial class newId
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,11 +26,11 @@ namespace Find_Genre.Server.Migrations
 
             modelBuilder.Entity("Find_Genre.Server.Models.Genre", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -44,58 +44,91 @@ namespace Find_Genre.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Popularity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Promoted")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("GenreId");
 
                     b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("Find_Genre.Server.Models.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("TagId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("TagId");
 
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("GenreGenre", b =>
+                {
+                    b.Property<int>("ParentGenresGenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubgenresGenreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ParentGenresGenreId", "SubgenresGenreId");
+
+                    b.HasIndex("SubgenresGenreId");
+
+                    b.ToTable("GenreGenre");
+                });
+
             modelBuilder.Entity("GenreTag", b =>
                 {
-                    b.Property<int>("GenresId")
+                    b.Property<int>("GenresGenreId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsId")
+                    b.Property<int>("TagsTagId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresId", "TagsId");
+                    b.HasKey("GenresGenreId", "TagsTagId");
 
-                    b.HasIndex("TagsId");
+                    b.HasIndex("TagsTagId");
 
                     b.ToTable("GenreTag");
+                });
+
+            modelBuilder.Entity("GenreGenre", b =>
+                {
+                    b.HasOne("Find_Genre.Server.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("ParentGenresGenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Find_Genre.Server.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("SubgenresGenreId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("GenreTag", b =>
                 {
                     b.HasOne("Find_Genre.Server.Models.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresId")
+                        .HasForeignKey("GenresGenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Find_Genre.Server.Models.Tag", null)
                         .WithMany()
-                        .HasForeignKey("TagsId")
+                        .HasForeignKey("TagsTagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
