@@ -19,7 +19,7 @@ namespace Find_Genre.Server.Repositories
         {
             if(genreModel.TagsId == null)
             {
-                return null;
+                return null!;
             }
             var genre = genreModel.FromCreateGenreDTO();
             var existing = await context.Genres
@@ -27,14 +27,14 @@ namespace Find_Genre.Server.Repositories
                 .FirstOrDefaultAsync();
             if (existing != null)
             {
-                return null;
+                return null!;
             }
             var tagList = await context.Tags
                 .Where(t => genreModel.TagsId.Contains(t.TagId))
                 .ToListAsync();
             if (tagList.Count != genreModel.TagsId.Count)
             {
-                return null;
+                return null!;
             }
             foreach (var item in tagList)
             {
@@ -114,24 +114,14 @@ namespace Find_Genre.Server.Repositories
             }
             existing.Name = genreDTO.Name;
             existing.Description = genreDTO.Description;
-            var tagListIds = genreDTO.TagsId?.ToList();
-            foreach (var tag in existing.Tags!.ToList())
-            {
-                if (genreDTO.TagsId!.Contains(tag.TagId))
-                {
-                    existing.Tags?.Remove(tag);
-                }
-                tagListIds?.RemoveAll(r => r == tag.TagId);
-            }
             existing.Promoted = genreDTO.Promoted;
             existing.Examples = genreDTO.Examples;
-            
             var tagList = await context.Tags
-                .Where(t => tagListIds!.Contains(t.TagId))
+                .Where(t => genreDTO.TagsId!.Contains(t.TagId))
                 .ToListAsync();
-            foreach (var item in tagListIds!)
+            foreach (var item in tagList!)
             {
-                existing.Tags?.Add(tagList.First(t => t.TagId == item));
+                existing.Tags?.Add(tagList.First(t => t.TagId == item.TagId));
             }
             if (genreDTO.ParentGenresId != null)
             {

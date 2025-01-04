@@ -4,6 +4,7 @@ namespace Find_Genre.Server.Models
 {
     public class Genre
     {
+        [Range(1, int.MaxValue)]
         public int GenreId { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;

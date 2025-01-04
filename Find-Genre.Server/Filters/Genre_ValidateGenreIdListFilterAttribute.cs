@@ -8,7 +8,7 @@ namespace Find_Genre.Server.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var genreIds = context.ActionArguments["tag"] as List<int>;
-            foreach (int indexer in genreIds)
+            foreach (int indexer in genreIds!)
             {
                 if (indexer <= 0)
                 {

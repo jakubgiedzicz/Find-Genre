@@ -38,7 +38,6 @@ namespace Find_Genre.Server.Controllers
             if (genre == null)
             {
                 ModelState.AddModelError("Genre", "Specified genre not found");
-
             }
             return Ok(genre?.FromGenreToGenreShallowDTO());            
         }
@@ -74,8 +73,9 @@ namespace Find_Genre.Server.Controllers
             if (genreModel == null)
             {
                 ModelState.AddModelError("Genre", "Specified genre not found");
+                return NotFound();
             }
-            return Ok(genreModel);
+            return Ok(genreModel!.FromGenreToGenreShallowDTO());
         }
         [HttpDelete]
         [Route("{id}")]
