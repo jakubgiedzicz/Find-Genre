@@ -33,14 +33,6 @@ namespace Find_Genre.Server.Mappers
                 Subgenres = genre.Subgenres?.Select(t => t.FromGenreToSubgenre()).ToList()
             };
         }
-        public static GenreDTO FromGenreToGenreDTO(this Genre genre)
-        {
-            return new GenreDTO
-            {
-                GenreId = genre.GenreId,
-                Name = genre.Name
-            };
-        }
         public static Subgenre FromGenreToSubgenre(this Genre subgenre)
         {
             return new Subgenre

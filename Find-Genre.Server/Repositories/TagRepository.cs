@@ -1,12 +1,9 @@
 ﻿using Find_Genre.Server.Data;
-using Find_Genre.Server.DTO.Genre;
 using Find_Genre.Server.DTO.Tag;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace Find_Genre.Server.Repositories
 {
