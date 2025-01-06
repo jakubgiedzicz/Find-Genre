@@ -41,45 +41,6 @@ namespace Find_Genre.Server.Mappers
                 Name = genre.Name
             };
         }
-        public static Genre FromGenreShallowToGenre(this GenreShallowTagDTO genre)
-        {
-            return new Genre
-            {
-                GenreId = genre.GenreId,
-                Name = genre.Name,
-                Description = genre.Description,
-                Examples = genre.Examples,
-                Promoted = genre.Promoted,
-                Popularity = genre.Popularity,
-                Tags = genre.Tags?.Select(t => t.FromTagDTOToTag()).ToList(),
-                ParentGenres = [],
-                Subgenres = []
-            };
-        }
-        public static Genre FromGenreShallowNoTagToGenre(this GenreShallowNoTagDTO genre)
-        {
-            return new Genre
-            {
-                Description = genre.Description,
-                Examples = genre.Examples,
-                GenreId = genre.GenreId,
-                Name = genre.Name,
-                Popularity = genre.Popularity,
-                Promoted = genre.Promoted
-            };
-        }
-        public static Genre FromGenreShallowNoTagToGenreShallow(this GenreShallowNoTagDTO genre)
-        {
-            return new Genre
-            {
-                Description = genre.Description,
-                Examples = genre.Examples,
-                GenreId = genre.GenreId,
-                Name = genre.Name,
-                Popularity = genre.Popularity,
-                Promoted = genre.Promoted
-            };
-        }
         public static Subgenre FromGenreToSubgenre(this Genre subgenre)
         {
             return new Subgenre

@@ -86,13 +86,12 @@ namespace Find_Genre.Server.Repositories
 
         public async Task<Genre?> GetByIdAsync(int id)
         {
-            var genre = await context.Genres
+            return await context.Genres
                 .Include(g => g.Tags)
                 .Include(g => g.Subgenres!)
                 .ThenInclude(g => g.Tags)
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(g => g.GenreId == id);
-            return genre;
         }
         public async Task<List<Genre>> GetByTags(List<int> tagIds)
         {

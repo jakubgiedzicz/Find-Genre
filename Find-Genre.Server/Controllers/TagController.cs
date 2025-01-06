@@ -1,6 +1,7 @@
 ﻿using Find_Genre.Server.Data;
 using Find_Genre.Server.DTO.Genre;
 using Find_Genre.Server.DTO.Tag;
+using Find_Genre.Server.Filters;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
@@ -23,16 +24,21 @@ namespace Find_Genre.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             var tags = await tagRepo.GetAllAsync();
-
-            return Ok(tags);
+            var result = new List<TagDTO>();
+            foreach (var tag in tags)
+            {
+                result.Add(tag.FromTagToTagDTO());
+            }
+            return Ok(result);
         }
+        [Tag_ValidateTagIdFilter]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var tag = await tagRepo.GetByIdAsync(id);
             if (tag == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Tag", "Specified Tag not found");
             }
             return Ok(tag);
         }
@@ -46,6 +52,7 @@ namespace Find_Genre.Server.Controllers
             };
             return CreatedAtAction(nameof(GetById), new { id = tag.TagId }, tag.FromTagToTagShallowDTO());
         }
+        [Tag_ValidateTagIdFilter]
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CreateTagDTO updateDTO)
@@ -55,8 +62,9 @@ namespace Find_Genre.Server.Controllers
             {
                 return NotFound();
             }
-            return Ok(tagModel);
+            return Ok(tagModel.FromTagToTagShallowDTO());
         }
+        [Tag_ValidateTagIdFilter]
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
@@ -65,7 +73,7 @@ namespace Find_Genre.Server.Controllers
 
             if (tagModel == null)
             {
-                return NotFound();
+                ModelState.AddModelError("Tag", "Specified tag not found");
             }
 
             return NoContent();
