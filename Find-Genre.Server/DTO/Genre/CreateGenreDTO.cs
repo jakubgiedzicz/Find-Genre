@@ -1,5 +1,4 @@
 ﻿using Find_Genre.Server.Filters;
-using System.ComponentModel.DataAnnotations;
 
 namespace Find_Genre.Server.Models
 {

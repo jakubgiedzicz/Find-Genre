@@ -5,9 +5,11 @@ using Find_Genre.Server.Models;
 using Find_Genre.Server.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Find_Genre.Server.DTO.Genre;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Find_Genre.Server.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/api/genre")]
     public class GenreController : ControllerBase

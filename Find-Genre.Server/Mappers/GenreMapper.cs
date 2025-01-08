@@ -43,7 +43,7 @@ namespace Find_Genre.Server.Mappers
                 Name = subgenre.Name,
                 Popularity = subgenre.Popularity,
                 Promoted = subgenre.Promoted,
-                Tags = subgenre?.Tags?.Select(t => t.FromTagToTagDTO()).ToList()
+                Tags = subgenre.Tags?.Select(t => t.FromTagToTagDTO()).ToList()
             };
         }
     }
