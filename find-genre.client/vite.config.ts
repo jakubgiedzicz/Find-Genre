@@ -49,8 +49,13 @@ export default defineConfig({
             '^/weatherforecast': {
                 target: 'https://localhost:7252/',
                 secure: false
+            },
+            '/api': {
+                target: 'https://localhost:7252/',
+                secure: false
             }
-        },
+        }
+        ,
         port: 5173,
         https: {
             key: fs.readFileSync(keyFilePath),
