@@ -54,12 +54,18 @@ function Home() {
             value={value}
             onChange={(event) => setValue(event.currentTarget.value)}
             rightSection={<ReloadSearch handleReload={handleReload} />}
-            leftSection={<MagnifyingGlassIcon />}
+            leftSection={<MagnifyingGlassIcon width={20} height={20}/>}
           />
           <Divider my="sm" />
           {tags.map(
             (tag) =>
-              tag.state != "default" && (
+              tag.state === "include" && (
+                <HomeTagBox tag={tag} update={updateTag} key={"1" + tag.id} />
+              )
+          )}
+          {tags.map(
+            (tag) =>
+              tag.state === "exclude" && (
                 <HomeTagBox tag={tag} update={updateTag} key={"1" + tag.id} />
               )
           )}

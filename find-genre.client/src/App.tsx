@@ -15,7 +15,6 @@ function App() {
                         <Group>
                         <Link to="/"><Text>Logo</Text></Link>
                             <Link to="/genre-details"><Text>Details</Text></Link>
-                            <Link to="/search-by-tag"><Text>Search</Text></Link>
                         </Group>
                         <LightDarkModeButton />
                     </Group>

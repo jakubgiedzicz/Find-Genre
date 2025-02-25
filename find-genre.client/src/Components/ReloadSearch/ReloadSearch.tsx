@@ -13,10 +13,12 @@ const ReloadSearch = (props: Props) => {
         <ReloadIcon
           onClick={() => props.handleReload()}
           className={styles.icon}
+          width={20}
+          height={20}
         />
       </HoverCard.Target>
       <HoverCard.Dropdown>
-        <Text>Use the reload button, to reset the list</Text>
+        <Text>Click this button to reset the list</Text>
       </HoverCard.Dropdown>
     </HoverCard>
   );
