@@ -5,11 +5,13 @@ using Find_Genre.Server.Filters;
 using Find_Genre.Server.Interfaces;
 using Find_Genre.Server.Mappers;
 using Find_Genre.Server.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Find_Genre.Server.Controllers
 {
+    [Authorize]
     [Route("api/tag")]
     [ApiController]
     public class TagController : ControllerBase
