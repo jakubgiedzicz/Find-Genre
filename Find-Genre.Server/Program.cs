@@ -4,6 +4,7 @@ using Find_Genre.Server.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
 
 var Origins = "test";
@@ -16,7 +17,8 @@ builder.Services.AddCors(o =>
     o.AddPolicy(name: Origins,
         policy =>
         {
-            policy.WithOrigins("https://localhost:5173");
+            policy.WithOrigins("https://localhost:5173")
+            .WithHeaders(HeaderNames.ContentType, "Access-Control-Allow-Headers").WithHeaders(HeaderNames.Authorization);
         });
 });
 builder.Services.AddControllers();
