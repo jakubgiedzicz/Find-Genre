@@ -122,6 +122,7 @@ namespace Find_Genre.Server.Repositories
             {
                 existing.Tags?.Add(tagList.First(t => t.TagId == item.TagId));
             }
+            //fix repeating tags
             if (genreDTO.ParentGenresId != null)
             {
                 var genreList = await context.Genres

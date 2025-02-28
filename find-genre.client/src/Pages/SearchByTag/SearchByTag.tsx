@@ -5,7 +5,6 @@ import { genreType } from "../../Types/api";
 function SearchByTag() {
     const [token, setToken] = useState<string | null>(null);
     const [data, setData] = useState<genreType[]>();
-    console.log(data)
     useEffect(() => {
         const Login = async () => {
             const response = await fetch("https://localhost:7252/login", {
@@ -40,8 +39,7 @@ function SearchByTag() {
     }, [token]);
     return (
         <>
-            {data ? data.length : 'xdd'}
-            {data ? <SongCard props={data[0]} /> : 'Loading'}
+            {data ? <SongCard props={data[4]} /> : 'Loading'}
         </>
     );
 }
