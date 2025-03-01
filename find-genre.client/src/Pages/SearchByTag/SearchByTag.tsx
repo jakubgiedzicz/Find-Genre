@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SongCard from "../../Components/SongCard/SongCard";
 import { genreType } from "../../Types/api";
+import { Loader } from "@mantine/core";
 
 function SearchByTag() {
     const [token, setToken] = useState<string | null>(null);
@@ -39,7 +40,7 @@ function SearchByTag() {
     }, [token]);
     return (
         <>
-            {data ? <SongCard props={data[4]} /> : 'Loading'}
+            {data ? <SongCard props={data[4]} /> : <Loader color="indigo" />}
         </>
     );
 }
