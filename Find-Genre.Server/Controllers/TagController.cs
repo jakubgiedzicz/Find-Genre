@@ -42,7 +42,7 @@ namespace Find_Genre.Server.Controllers
             {
                 ModelState.AddModelError("Tag", "Specified Tag not found");
             }
-            return Ok(tag);
+            return Ok(tag.FromTagToTagShallowDTO());
         }
         [HttpPost]
         public async Task <IActionResult> Create([FromBody] CreateTagDTO tagDTO)
