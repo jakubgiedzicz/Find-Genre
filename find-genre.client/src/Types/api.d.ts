@@ -7,8 +7,8 @@ export interface subgenreType {
     description: string,
     examples: string[],
     name: string,
-    popularity: number,
-    promoted: string[],
+    popularity?: number,
+    promoted?: string[],
     subgenreId: number
 }
 export interface genreType {
@@ -17,7 +17,7 @@ export interface genreType {
     examples: string[],
     name: string,
     popularity: number,
-    promoted: string[],
-    subgenres: subgenreType[],
+    promoted?: string[],
+    subgenres?: subgenreType[],
     genreId: number
 }
