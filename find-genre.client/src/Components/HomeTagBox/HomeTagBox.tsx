@@ -42,8 +42,11 @@ const HomeTagBox = (props: Props) => {
             }
         }
     };
+    const getHover = () => {
+        return colorScheme == "light" ? styles.light_hover : styles.dark_hover
+    }
     const getClassname = () => {
-        return tagBackground() + " " + styles.container_padding + ' ' + styles.container_shadow
+        return tagBackground() + " " + styles.container_padding + ' ' + getHover()
     }
 
     return (
@@ -53,7 +56,6 @@ const HomeTagBox = (props: Props) => {
                     variant={buttonVariant()}
                     color="green"
                     onClick={() => handleClick("include")}
-                    className={styles.button_green}
                     miw={"0.5em"}
                     bd={"none"}
                 >

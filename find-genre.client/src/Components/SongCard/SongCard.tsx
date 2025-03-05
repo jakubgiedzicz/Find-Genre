@@ -26,10 +26,10 @@ function SongCard({ props }: { props: genreType }) {
                             ))}
                         </Group>
                     </Box>
-                    {props.subgenres.length != 0 && <Box bg={bg_color()} p={8} className={styles.container_radius}>
+                    {props.subgenres?.length != 0 && <Box bg={bg_color()} p={8} className={styles.container_radius}>
                         <Title order={3} p={8}>Subgenres:</Title>
                         <Group bd={"1px gray dashed"} p={8}>
-                            {props.subgenres.map((element) => (
+                            {props.subgenres?.map((element) => (
                                 <Badge key={element.subgenreId} color="indigo" variant="light">{element.name}</Badge>
                             ))}
                         </Group>
@@ -49,6 +49,12 @@ function SongCard({ props }: { props: genreType }) {
                     </Carousel>
                 </Box>
             </Group>
+            <Title>
+                Aesthetic
+            </Title>
+            <Text>
+                The witch house visual aesthetic includes occultism, witchcraft, shamanism, terror and horror-inspired artworks, collages and photographs. Common typographic elements in titles, such as by Salem and White Ring, include triangles, crosses and Unicode symbols, which are seen by some as a method of gatekeeping (in an effort to keep the scene underground and more difficult to search for on the Internet).
+            </Text>
         </Stack>
     );
 }

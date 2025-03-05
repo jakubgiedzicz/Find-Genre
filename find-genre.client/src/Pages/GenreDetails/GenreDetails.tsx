@@ -4,8 +4,8 @@ import styles from '../../Components/SongCard/SongCard.module.css'
 import { genreType } from '../../Types/api';
 const example: genreType = {
     name: "Witch House",
-    description: "",
-    tags: [{ name: "Slow", tagId: 1 }, { name: "Eerie", tagId: 2 }],
+    description: "Witch house is a microgenre of electronic music that is musically characterized by high-pitched keyboard effects, heavily layered basslines and trap-style drum loops, while it aesthetically employs occult and gothic-inspired themes.",
+    tags: [{ name: "Slow", tagId: 1 }, { name: "Eerie", tagId: 2 }, { name: "Eerie", tagId: 3 }, { name: "Eerie", tagId: 4 }, { name: "Eerie", tagId: 5 }, { name: "Eerie", tagId: 6 }, { name: "Eerie", tagId: 7 }, { name: "Eerie", tagId: 8 }, { name: "Eerie", tagId: 9 }, { name: "Eerie", tagId: 10 }, { name: "Eerie", tagId: 11 }, { name: "Eerie", tagId: 12 }, { name: "Eerie", tagId: 13 }, { name: "Eerie", tagId: 142 }, { name: "Eerie", tagId: 152 }],
     examples: [
         "0YxnPvRuJXk",
         "k6t69KQOBCg",
