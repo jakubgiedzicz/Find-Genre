@@ -37,7 +37,7 @@
         bottom: 0;
         width: 50px;
         position: absolute;
-        background-color: rgba(250,82,82,0.4);
+        background-color: rgba(192,64,64,0.25);
         transform: scaleX(2);
         filter: blur(1em);
         z-index: -1;
@@ -63,7 +63,7 @@
         bottom: 0;
         width: 50px;
         position: absolute;
-        background-color: rgba(250,82,82,1);
+        background-color: rgba(192,64,64,1);
         transform: scaleX(2);
         filter: blur(1em);
         z-index: -1;
