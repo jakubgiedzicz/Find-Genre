@@ -12,6 +12,12 @@
 .light_hover:hover{
     background-color:rgba(0,0,0,0.06)
 }
+.light_background {
+    background-color: rgba(0,0,0,0.06)
+}
+.dark_background {
+    background-color: rgba(255,255,255,0.04)
+}
 
 .include_dark,.exclude_dark,.include_light,.exclude_light {
     position: relative;

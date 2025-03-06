@@ -46,7 +46,16 @@ const HomeTagBox = (props: Props) => {
         return colorScheme == "light" ? styles.light_hover : styles.dark_hover
     }
     const getClassname = () => {
-        return tagBackground() + " " + styles.container_padding + ' ' + getHover()
+        return tagBackground() + " " + styles.container_padding + ' ' + getHover() + ' ' + getHighlight()
+    }
+    const getHighlight = () => {
+        if (props.tag.state != "default") {
+            if (colorScheme == "light") {
+                return styles.light_background
+            } else if (colorScheme == "dark") {
+                return styles.dark_background
+            }
+        }
     }
 
     return (
