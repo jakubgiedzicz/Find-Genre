@@ -42,7 +42,7 @@ function GenreDetails() {
                         <Title order={3} p={8}>Subgenres:</Title>
                         <Group bd={"1px gray dashed"} p={8}>
                             {example.subgenres?.map((element) => (
-                                <Badge key={element.subgenreId} color="indigo" variant="light">{element.name}</Badge>
+                                <Badge key={element.subgenreId} color="indigo" variant={scheme == "dark" ? "light" : "filled"}>{element.name}</Badge>
                             ))}
                         </Group>
                     </Box>}
