@@ -1,25 +1,16 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { IGenre } from "../../Types/api";
-import { Badge, Card, Group, Stack, Text, Title, useComputedColorScheme } from "@mantine/core";
-const example: IGenre = {
-    name: "Witch House",
-    description: "Witch house is a microgenre of electronic music that is musically characterized by high-pitched keyboard effects, heavily layered basslines and trap-style drum loops, while it aesthetically employs occult and gothic-inspired themes.",
-    tags: [{ name: "Slow", tagId: 1 }, { name: "cheerful", tagId: 2 }, { name: "choir", tagId: 3 }, { name: "classic", tagId: 4 }, { name: "club", tagId: 5 }, { name: "dark", tagId: 6 }, { name: "Eerie", tagId: 7 }, { name: "Eerie", tagId: 8 }, { name: "Eerie", tagId: 9 }, { name: "Eerie", tagId: 10 }, { name: "Eerie", tagId: 11 }, { name: "Eerie", tagId: 12 }, { name: "Eerie", tagId: 13 }, { name: "Eerie", tagId: 142 }, { name: "Eerie", tagId: 152 }],
-    examples: [
-        "0YxnPvRuJXk",
-        "k6t69KQOBCg",
-        "xiCEzJIDpwU",
-        "TUFN4R2jb30",
-        "OM6o0y3NYcQ"],
-    genreId: 1,
-    popularity: 0,
-    promoted: [""]
-}
+import styles from './SearchResult.module.css'
+import { Badge, Button, Card, Center, Group, SimpleGrid, Stack, Text, Title, useComputedColorScheme } from "@mantine/core";
+import { useState } from "react";
+import data from '../../data.json'
 function SearchResult() {
     const [searchParams, setSearchParams] = useSearchParams()
+    const [genres, setGenres] = useState<IGenre[]>(data)
     const scheme = useComputedColorScheme()
+    console.log(genres)
     const getTags = () => {
-        return example.tags.map((e) => {
+        return genres[0].tags.map((e) => {
             if (searchParams.get("include")?.split(" ").includes(e.name)) {
                 return (<Badge key={e.tagId} color="green" variant={scheme == "dark" ? "light" : "filled"}>{e.name}</Badge>)
             } else return (<Badge key={e.tagId} color="indigo" variant={scheme == "dark" ? "light" : "filled"}>{e.name}</Badge>)
@@ -27,22 +18,26 @@ function SearchResult() {
     }
     return (
         <Stack mx={"15%"}>
-            <Group>
-                <Card w="30%" p={64}>
-                    <Card.Section pb={16 }>
-                        <Title>{example.name}</Title>
-                        <Text c="dimmed">{example.description}</Text>
+            <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} mt={32}>
+                <Card shadow="md" p={64} className={styles.search_card}>
+                    <Card.Section pb={16}>
+                        <Title ta="center" order={1} fw={500}>{genres[0].name}</Title>
+                        <Text c="dimmed">{genres[0].description}</Text>
                     </Card.Section>
-                    <Card.Section>
+                    <Card.Section pb={16}>
                         <Group>
                             {getTags()}
                         </Group>
                     </Card.Section>
+                    <Card.Section>
+                        <Center>
+                            <Button component={Link} px={64} color="indigo" to={`/genre-details/${genres[0].name.toLowerCase()}`}>Read more</Button>
+                        </Center>
+                    </Card.Section>
                 </Card>
-                
-            </Group>
+            </SimpleGrid>
         </Stack>
-  );
+    );
 }
 
 export default SearchResult;
