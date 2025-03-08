@@ -1,12 +1,12 @@
 ﻿import { Title, Text, Pill, InputBase, Stack, Center, Group, Badge, Box, Image, Container, useMantineTheme, useComputedColorScheme, Card, Flex } from "@mantine/core";
-import { genreType } from "../../Types/api";
+import { IGenre } from "../../Types/api";
 import { useEffect, useState } from "react";
 import { Carousel } from "@mantine/carousel";
 import '@mantine/carousel/styles.css';
 import styles from './SongCard.module.css'
 import { Link } from "react-router-dom";
 import bc_light from '../../assets/bandcamp-logotype-light-128.png'
-function SongCard({ props }: { props: genreType }) {
+function SongCard({ props }: { props: IGenre }) {
     const theme = useMantineTheme();
     const scheme = useComputedColorScheme();
     const bg_color = () => {

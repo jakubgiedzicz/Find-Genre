@@ -1,9 +1,9 @@
-export interface tagType {
+export interface ITag {
     name: string,
     tagId: number
 }
-export interface subgenreType {
-    tags: tagType[],
+export interface ISubgenre {
+    tags: ITag[],
     description: string,
     examples: string[],
     name: string,
@@ -11,13 +11,13 @@ export interface subgenreType {
     promoted?: string[],
     subgenreId: number
 }
-export interface genreType {
-    tags: tagType[],
+export interface IGenre {
+    tags: ITag[],
     description: string,
     examples: string[],
     name: string,
     popularity: number,
     promoted?: string[],
-    subgenres?: subgenreType[],
+    subgenres?: ISubgenre[],
     genreId: number
 }

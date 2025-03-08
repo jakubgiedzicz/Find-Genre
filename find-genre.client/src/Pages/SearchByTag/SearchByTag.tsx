@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import SongCard from "../../Components/SongCard/SongCard";
-import { genreType } from "../../Types/api";
+import { IGenre } from "../../Types/api";
 import { Loader } from "@mantine/core";
 
 function SearchByTag() {
     const [token, setToken] = useState<string | null>(null);
-    const [data, setData] = useState<genreType[]>();
+    const [data, setData] = useState<IGenre[]>();
     useEffect(() => {
         const Login = async () => {
             const response = await fetch("https://localhost:7252/login", {
