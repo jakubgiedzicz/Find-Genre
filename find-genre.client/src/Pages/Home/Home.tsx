@@ -1,10 +1,10 @@
-import { Box, Button, Divider, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Box, Button, Divider, Stack, Text, TextInput, Title, Tooltip } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import HomeTagBox from "../../Components/HomeTagBox/HomeTagBox";
 import { ITagData } from "../../Types/hometag";
 import ReloadSearch from "../../Components/ReloadSearch/ReloadSearch";
-import { Form } from "react-router-dom";
+import SearchForm from "../../Components/SearchForm/SearchForm";
 
 function Home() {
     const [value, setValue] = useState("");
@@ -47,6 +47,9 @@ function Home() {
             setInclude(tags.filter((i) => i.state == "include").map(o => o.value).join(" "))
             setExclude(tags.filter((i) => i.state == "exclude").map(o => o.value).join(" "))
     }
+    useEffect(() => {
+        handleSearchParams()
+    }, [tags])
     return (
         <>
             <Stack pt="4em" align="center">
@@ -64,11 +67,9 @@ function Home() {
                         rightSection={<ReloadSearch handleReload={handleReload} />}
                         leftSection={<MagnifyingGlassIcon width={20} height={20} />}
                     />
-                    <Form action={"/search"} name={"q"} method={"get"}>
-                        {include && <input name="include" type="text" hidden={true} value={include} readOnly />}
-                        {exclude && < input name="exclude" type="text" hidden={true} value={exclude} readOnly />}
-                        <Button type={"submit"} onClick={handleSearchParams}>Search</Button>
-                    </Form>
+                    <Stack align="center">
+                        {(include || exclude) ? < SearchForm include={include} exclude={exclude} /> : <Tooltip label={"Choose tags to enable search!"}><Button disabled px={64} variant="filled" color="indigo" mt={16}>Find genres</Button></Tooltip>}
+                    </Stack>
                     <Divider my="sm" />
                     {tags.map(
                         (tag) =>

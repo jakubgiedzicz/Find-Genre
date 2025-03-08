@@ -43,7 +43,7 @@ const HomeTagBox = (props: Props) => {
         }
     };
     const getHover = () => {
-        return colorScheme == "light" ? styles.light_hover : styles.dark_hover
+        return colorScheme == "light" ? styles.light_box : styles.dark_box
     }
     const getClassname = () => {
         return tagBackground() + " " + styles.container_padding + ' ' + getHover() + ' ' + getHighlight()

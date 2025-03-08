@@ -6,10 +6,16 @@
 .container_padding:hover{
     transform:scale(1.1);
 }
-.dark_hover:hover {
+.light_box {
+    background-color: rgba(0,0,0,0.01)
+}
+.dark_box {
+    background-color: rgba(255,255,255,0.01)
+}
+.dark_box:hover {
     background-color: rgba(255,255,255,0.04)
 }
-.light_hover:hover{
+.light_box:hover{
     background-color:rgba(0,0,0,0.06)
 }
 .light_background {
