@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Stack, Text, TextInput, Title } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import HomeTagBox from "../../Components/HomeTagBox/HomeTagBox";
 import { ITagData } from "../../Types/hometag";
@@ -26,6 +26,9 @@ function Home() {
         { value: "tiktok", id: 8, state: "default" },
         { value: "western", id: 14, state: "default" },
     ]);
+    const [include, setInclude] = useState<string>()
+    const [exclude, setExclude] = useState<string>()
+
     const updateTag = (tag: ITagData, state: "default" | "include" | "exclude") => {
         const newTags = [...tags];
         const update = newTags.find((a) => a.id === tag.id);
@@ -40,6 +43,10 @@ function Home() {
         }));
         setTags(newTags);
     };
+    const handleSearchParams = () => {
+            setInclude(tags.filter((i) => i.state == "include").map(o => o.value).join(" "))
+            setExclude(tags.filter((i) => i.state == "exclude").map(o => o.value).join(" "))
+    }
     return (
         <>
             <Stack pt="4em" align="center">
@@ -58,9 +65,9 @@ function Home() {
                         leftSection={<MagnifyingGlassIcon width={20} height={20} />}
                     />
                     <Form action={"/search"} name={"q"} method={"get"}>
-                        <input name="include" type="text" hidden={true} value={"cheerful tiktok"} readOnly />
-                        <input name="exclude" type="text" hidden={true} value={"western"} readOnly />
-                        <Button type={"submit"}>Search</Button>
+                        {include && <input name="include" type="text" hidden={true} value={include} readOnly />}
+                        {exclude && < input name="exclude" type="text" hidden={true} value={exclude} readOnly />}
+                        <Button type={"submit"} onClick={handleSearchParams}>Search</Button>
                     </Form>
                     <Divider my="sm" />
                     {tags.map(

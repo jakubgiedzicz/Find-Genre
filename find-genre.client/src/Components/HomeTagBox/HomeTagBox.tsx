@@ -1,10 +1,10 @@
 import { Button, Group, Text, useMantineColorScheme } from "@mantine/core";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import styles from "./HomeTagBox.module.css";
-import { ITagData } from "../../Types/hometag";
+import { ITagData, tagStateType } from "../../Types/hometag";
 interface Props {
     tag: ITagData;
-    update: (tag: ITagData, state: string) => void;
+    update: (tag: ITagData, state: tagStateType) => void;
 }
 
 const HomeTagBox = (props: Props) => {
@@ -27,7 +27,7 @@ const HomeTagBox = (props: Props) => {
             return "light";
         } else return "filled";
     };
-    const handleClick = (status: string) => {
+    const handleClick = (status: tagStateType) => {
         if (status === "include") {
             if (props.tag.state === "include") {
                 props.update(props.tag, "default");
