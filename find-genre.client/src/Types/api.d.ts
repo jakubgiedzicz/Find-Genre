@@ -20,9 +20,9 @@ export interface IArtists {
 export interface IGenre {
     tags: ITag[],
     description_short: string,
-    artists: IArtists[],
+    artists?: IArtists[],
     descriptions: string[],
-    examples: string[],
+    examples?: string[],
     name: string,
     popularity: number,
     promoted?: string[],

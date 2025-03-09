@@ -77,5 +77,26 @@
         "bandcamp": "ivoryrite"
       }
     ]
+  },
+  {
+    "name": "Electronic",
+    "description_short": "Electronic music broadly is a group of music genres that employ electronic musical instruments, circuitry-based music technology and software, or general-purpose electronics (such as personal computers) in its creation.",
+    "tags": [
+      {
+        "name": "Electronic",
+        "tagId": 8
+      }
+    ],
+    "examples": [
+      "EiqFcc_l_Kk",
+      "JEYI-zfc544",
+      "8tIgN7eICn4",
+      "__CRWE-L45k",
+      "cPImyt6lY8Q"
+    ],
+    "genreId": 2,
+    "popularity": 0,
+    "promoted": [ "" ],
+    "descriptions": [ "Genre boom", "The 1970s also saw electronic music begin to have a significant influence on popular music, with the adoption of polyphonic synthesizers, electronic drums, drum machines, and turntables, through the emergence of genres such as disco, krautrock, new wave, synth-pop, hip hop, and electronic dance music (EDM).", "Electronic genres", "In the new millennium, as computer technology became even more accessible and music software advanced, interacting with music production technology made it possible to create music that has some similarities and some differences to traditional musical performance practices, leading to further developments and rapidly evolving subgenres." ]
   }
 ]
