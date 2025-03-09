@@ -64,7 +64,6 @@ function Home() {
         if (i.value.includes(value))
             return i
     })
-    console.log(items)
     useEffect(() => {
         handleSearchParams()
     }, [tags])
