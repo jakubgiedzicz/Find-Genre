@@ -5,10 +5,10 @@ import bc_light from '../../assets/bandcamp-logotype-light-128.png'
 import styles from './Artists.module.css'
 import bc_dark from '../../assets/bandcamp-logotype-dark-128.png'
 
-function Artists({ artists }: { artists: IArtists[] }) {
+function Artists({ artists, id }: { artists: IArtists[], id: number }) {
     const scheme = useComputedColorScheme()
-    const items = artists.map((i) => 
-        (<Box>
+    const items = artists.map((i) =>
+    (<Box key={id}>
             <Title order={2}>{i.name}</Title>
         <Card>
             {i.spotify && < Card.Section className={styles.spotify_border} p={"1em"}>

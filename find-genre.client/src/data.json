@@ -98,5 +98,39 @@
     "popularity": 0,
     "promoted": [ "" ],
     "descriptions": [ "Genre boom", "The 1970s also saw electronic music begin to have a significant influence on popular music, with the adoption of polyphonic synthesizers, electronic drums, drum machines, and turntables, through the emergence of genres such as disco, krautrock, new wave, synth-pop, hip hop, and electronic dance music (EDM).", "Electronic genres", "In the new millennium, as computer technology became even more accessible and music software advanced, interacting with music production technology made it possible to create music that has some similarities and some differences to traditional musical performance practices, leading to further developments and rapidly evolving subgenres." ]
+  },
+  {
+    "name": "House",
+    "description_short": "House is a genre of electronic dance music characterized by a repetitive four-on-the-floor beat and a typical tempo of 115–130 beats per minute. It was created by DJs and music producers from Chicago's underground club culture and evolved slowly in the early/mid 1980s as DJs began altering disco songs to give them a more mechanical beat.",
+    "tags": [
+      {
+        "name": "Electronic",
+        "tagId": 8
+      },
+      {
+        "name": "Bouncy",
+        "tagId": 4
+      },
+      {
+        "name": "Melodic",
+        "tagId": 26
+      }
+    ],
+    "examples": [
+      "Pt1C4LM516k",
+      "UyI4v5sxT54",
+      "MhfU_3yp7tQ",
+      "92TN7vz8DPI",
+      "mj9KRKSvdbk"
+    ],
+    "genreId": 3,
+    "popularity": 0,
+    "promoted": [ "" ],
+    "descriptions": [
+      "Characteristics",
+      "In its most typical form, the genre is characterized by repetitive 4/4 rhythms including bass drums, off-beat hi-hats, snare drums, claps, and/or snaps at a tempo of between 120 and 130 beats per minute (bpm); synthesizer riffs; deep basslines; and often, but not necessarily, sung, spoken or sampled vocals.",
+      "Influence",
+      "House has a large influence on pop music, especially dance music. It was incorporated into works by major international artists including Whitney Houston, Mariah Carey, Janet Jackson, Madonna, Pet Shop Boys, Kylie Minogue and Lady Gaga, and produced many mainstream hits such as Pump Up the Jam by Technotronic, French Kiss by Lil Louis, Show,Me Love by Robin S. and Push the Feeling On by the Nightcrawlers. Many house DJs also did and continue to do remixes for pop artists. House music has remained popular on radio and in clubs while retaining a foothold on the underground scenes across the globe"
+    ]
   }
 ]

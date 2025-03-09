@@ -70,7 +70,7 @@ const HomeTagBox = (props: Props) => {
                 >
                     <PlusIcon width={"1em"} />
                 </Button>
-                <Text>{props.tag.value}</Text>
+                <Text>{props.tag.value} {props.tag.id}</Text>
                 <Button
                     variant={buttonVariant()}
                     color="red"

@@ -38,8 +38,8 @@ function GenreDetails() {
                     </Carousel>
                 </Box>}
             </Group>
-            {genre?.descriptions && <Descriptions descs={genre?.descriptions} />}
-            {genre?.artists && <Artists artists={genre?.artists} />}
+            {genre?.descriptions && <Descriptions descs={genre?.descriptions} key={genre.genreId} id={genre.genreId} />}
+            {genre?.artists && <Artists artists={genre?.artists} key={genre.genreId} id={genre.genreId} />}
         </Stack>
     );
 }
