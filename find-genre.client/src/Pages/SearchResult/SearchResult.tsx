@@ -2,7 +2,7 @@ import { IGenre } from "../../Types/api";
 import { SimpleGrid, Stack } from "@mantine/core";
 import { useState } from "react";
 import data from '../../data.json'
-import GenreCard from "../../Components/SongCard/SongCard";
+import GenreCard from '../../Components/GenreCard/GenreCard';
 function SearchResult() {
     const [genres, setGenres] = useState<IGenre[]>(data)
     return (
