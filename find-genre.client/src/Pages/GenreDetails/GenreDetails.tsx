@@ -7,6 +7,8 @@ import '@mantine/carousel/styles.css';
 import bc_light from '../../assets/bandcamp-logotype-light-128.png'
 import json from '../../data.json'
 import { useEffect, useState } from 'react';
+import Descriptions from '../../Components/Descriptions/Descriptions';
+import Artists from '../../Components/Artists/Artists';
 function GenreDetails() {
     const data = useLocation()
     const [genre, setGenre] = useState<IGenre>()
@@ -60,31 +62,8 @@ function GenreDetails() {
                     </Carousel>
                 </Box>}
             </Group>
-            <Title order={1}>
-                {genre && genre.descriptions[0]}
-            </Title>
-            <Text>
-                {genre && genre.descriptions[1]}
-            </Text>
-            <Title order={1}>
-                Artists
-            </Title>
-            <Card>
-                <Title order={2}>{genre && genre.artists[0].name}</Title>
-                <Card.Section className={styles.spotify_border} p={"1em"}>
-                    <iframe src={`https://open.spotify.com/embed/artist/${genre && genre.artists[0].spotify}`} width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </Card.Section>
-            </Card>
-            <Card>
-                <Title order={2}>{genre && genre.artists[1].name}</Title>
-                <Card.Section className={styles.spotify_border} p={"1em"}>
-                    <Flex justify={"center"} align={"center"}>
-                        <Link to={`https://${genre && genre.artists[1].bandcamp}.bandcamp.com/`} target={"_blank"}>
-                            <Image src={bc_light} width={442} height={128} />
-                        </Link>
-                    </Flex>
-                </Card.Section>
-            </Card>
+            {genre?.descriptions && < Descriptions descs={genre?.descriptions} />}
+            {genre?.artists && < Artists artists={genre?.artists} />}
         </Stack>
     );
 }
