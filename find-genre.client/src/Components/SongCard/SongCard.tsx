@@ -1,6 +1,5 @@
 ﻿import { Title, Text, Pill, InputBase, Stack, Center, Group, Badge, Box, Image, Container, useMantineTheme, useComputedColorScheme, Card, Flex } from "@mantine/core";
 import { IGenre } from "../../Types/api";
-import { useEffect, useState } from "react";
 import { Carousel } from "@mantine/carousel";
 import '@mantine/carousel/styles.css';
 import styles from './SongCard.module.css'

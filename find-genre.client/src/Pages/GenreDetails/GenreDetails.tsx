@@ -20,7 +20,7 @@ function GenreDetails() {
                 <Stack>
                     <Title order={1}>{genre[0].name}</Title>
                     <Text>
-                        {genre[0].description}
+                        {genre[0].description_short}
                     </Text>
                     <Box bg={bg_color()} p={8} className={styles.container_radius}>
                         <Title order={3} p={8}>Tags:</Title>
@@ -54,25 +54,25 @@ function GenreDetails() {
                 </Box>
             </Group>
             <Title order={1}>
-                Aesthetic
+                {genre[0].descriptions[0]}
             </Title>
             <Text>
-                The witch house visual aesthetic includes occultism, witchcraft, shamanism, terror and horror-inspired artworks, collages and photographs. Common typographic elements in titles, such as by Salem and White Ring, include triangles, crosses and Unicode symbols, which are seen by some as a method of gatekeeping (in an effort to keep the scene underground and more difficult to search for on the Internet).
+                {genre[0].descriptions[1]}
             </Text>
             <Title order={1}>
                 Artists
             </Title>
             <Card>
-                <Title order={2}>ΔXIUS LIИK</Title>
+                <Title order={2}>{genre[0].artists[0].name}</Title>
                 <Card.Section className={styles.spotify_border} p={"1em"}>
-                    <iframe src="https://open.spotify.com/embed/artist/1C6yCV9Y7kycveSPJr0un9?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    <iframe src={`https://open.spotify.com/embed/artist/${genre[0].artists[0].spotify}`} width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </Card.Section>
             </Card>
             <Card>
-                <Title order={2}>Fraunhofer Diffraction</Title>
+                <Title order={2}>{genre[0].artists[1].name}</Title>
                 <Card.Section className={styles.spotify_border} p={"1em"}>
                     <Flex justify={"center"} align={"center"}>
-                        <Link to="https://ivoryrite.bandcamp.com/" target={"_blank"}>
+                        <Link to={`https://${genre[0].artists[1].bandcamp}.bandcamp.com/`} target={"_blank"}>
                             <Image src={bc_light} width={442} height={128} />
                         </Link>
                     </Flex>

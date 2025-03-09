@@ -11,9 +11,17 @@ export interface ISubgenre {
     promoted?: string[],
     subgenreId: number
 }
+export interface IArtists {
+    name: string,
+    spotify?: string,
+    bandcamp?: string,
+    soundcloud?: string
+}
 export interface IGenre {
     tags: ITag[],
-    description: string,
+    description_short: string,
+    artists: IArtists[],
+    descriptions: string[],
     examples: string[],
     name: string,
     popularity: number,

@@ -1,30 +1,30 @@
 [
   {
     "name": "Witch House",
-    "description": "Witch house is a microgenre of electronic music that is musically characterized by high-pitched keyboard effects, heavily layered basslines and trap-style drum loops, while it aesthetically employs occult and gothic-inspired themes.",
+    "description_short": "Witch house is a microgenre of electronic music that is musically characterized by high-pitched keyboard effects, heavily layered basslines and trap-style drum loops, while it aesthetically employs occult and gothic-inspired themes.",
     "tags": [
       {
-        "name": "Slow",
+        "name": "Mysterious",
         "tagId": 1
       },
       {
-        "name": "cheerful",
+        "name": "Breathtaking",
         "tagId": 2
       },
       {
-        "name": "choir",
+        "name": "Cold",
         "tagId": 3
       },
       {
-        "name": "classic",
+        "name": "Creepy",
         "tagId": 4
       },
       {
-        "name": "club",
+        "name": "Disturbing",
         "tagId": 5
       },
       {
-        "name": "dark",
+        "name": "Dark",
         "tagId": 6
       },
       {
@@ -32,36 +32,28 @@
         "tagId": 7
       },
       {
-        "name": "Eerie",
+        "name": "Electronic",
         "tagId": 8
       },
       {
-        "name": "Eerie",
+        "name": "Esoteric",
         "tagId": 9
       },
       {
-        "name": "Eerie",
+        "name": "Melodic",
         "tagId": 10
       },
       {
-        "name": "Eerie",
+        "name": "Sad",
         "tagId": 11
       },
       {
-        "name": "Eerie",
+        "name": "Solitude",
         "tagId": 12
       },
       {
-        "name": "Eerie",
+        "name": "Sorrow",
         "tagId": 13
-      },
-      {
-        "name": "Eerie",
-        "tagId": 142
-      },
-      {
-        "name": "Eerie",
-        "tagId": 152
       }
     ],
     "examples": [
@@ -73,6 +65,17 @@
     ],
     "genreId": 1,
     "popularity": 0,
-    "promoted": [ "" ]
+    "promoted": [ "" ],
+    "descriptions": [ "Aesthetic", "The witch house visual aesthetic includes occultism, witchcraft, shamanism, terror and horror-inspired artworks, collages and photographs. Common typographic elements in titles, such as by Salem and White Ring, include triangles, crosses and Unicode symbols, which are seen by some as a method of gatekeeping (in an effort to keep the scene underground and more difficult to search for on the Internet)." ],
+    "artists": [
+      {
+        "name": "ΔXIUS LIИK",
+        "spotify": "1C6yCV9Y7kycveSPJr0un9?utm_source=generator&theme=0"
+      },
+      {
+        "name": "Fraunhofer Diffraction",
+        "bandcamp": "ivoryrite"
+      }
+    ]
   }
 ]
