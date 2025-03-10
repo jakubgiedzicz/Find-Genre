@@ -5,6 +5,7 @@ import SearchByTag from '../Pages/SearchByTag/SearchByTag';
 import GenreDetails from '../Pages/GenreDetails/GenreDetails';
 import SearchResult from '../Pages/SearchResult/SearchResult';
 export const Router = createBrowserRouter([
+    
     {
         path: '/',
         element: <App />,
@@ -15,4 +16,4 @@ export const Router = createBrowserRouter([
             { path: "/search", element: <SearchResult /> }
         ]
     }
-])
+], { basename: "/Find-Genre" })
