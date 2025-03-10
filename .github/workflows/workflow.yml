@@ -31,13 +31,14 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
+          working-directory: ./find-genre.client/
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        working-directory: ./find-genre.client/
+        working-directory: ./find-genre.client
         run: npm ci
       - name: Build
-        working-directory: ./find-genre.client/
+        working-directory: ./find-genre.client
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
