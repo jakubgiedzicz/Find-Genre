@@ -7,9 +7,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-defaults:
-  run:
-    working-directory: find-genre.client
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -37,9 +34,11 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
-        run: find-genre.client/npm ci
+        run: npm ci
+        working-directory: ./find-genre.client/
       - name: Build
-        run: find-genre.client/npm run build
+        run: npm run build
+        working-directory: ./find-genre.client/
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
