@@ -31,7 +31,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          working-directory: ./find-genre.client/
+          cache-dependency-path: './find-genre.client/package-lock.json'
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
