@@ -34,11 +34,11 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
+        working-directory: ./find-genre.client/
         run: npm ci
-        working-directory: ./find-genre.client/
       - name: Build
-        run: npm run build
         working-directory: ./find-genre.client/
+        run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
