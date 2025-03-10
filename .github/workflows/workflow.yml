@@ -9,7 +9,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./find-genre-client/
+    working-directory: ./find-genre.client/
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -36,6 +36,9 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - name: Open Client Directory
+        run: |
+          cd ./find-genre.client/
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -46,7 +49,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload dist folder
-          path: './find-genre\.client/dist'
+          path: './find-genre.client/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
