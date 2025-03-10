@@ -4,10 +4,8 @@ name: Deploy static content to Pages
 on:
   push:
     branches: [ "master" ]
-    paths: ["find-genre.client/**"]
   pull_request:
     branches: [ "master" ]
-    paths: ["find-genre.client/**"]
 
 defaults:
   run:
