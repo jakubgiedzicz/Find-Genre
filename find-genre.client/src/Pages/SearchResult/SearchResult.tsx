@@ -1,9 +1,9 @@
 import { IGenre } from "../../Types/api";
-import { SimpleGrid, Stack } from "@mantine/core";
+import { Button, Center, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import data from '../../data.json'
 import GenreCard from '../../Components/GenreCard/GenreCard';
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 function SearchResult() {
     const [params, setParams] = useSearchParams()
     const [genres, setGenres] = useState<IGenre[]>()
@@ -47,13 +47,17 @@ function SearchResult() {
         filterGenres()
     }, [])
     return (
-        <Stack mx={"15%"}>
+        <>
+            {genres?.length !=0 ? <Stack mx={"15%"}>
             <SimpleGrid cols={{ base: 1, md: 2, xl: 3 }} mt={32}>
                 {genres && genres.map((i) => (
                     <GenreCard data={i} key={i.genreId} />
                 ))}
-            </SimpleGrid>
-        </Stack>
+                </SimpleGrid>
+            </Stack> : <Stack align="center"><Title c="indigo">Looks like I couldn't find anything...</Title>
+                <Button component={Link} color="indigo" to="/">Go back to search</Button>
+            </Stack>}
+        </>
     );
 }
 
