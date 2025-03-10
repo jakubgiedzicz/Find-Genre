@@ -1,6 +1,6 @@
 ﻿import { useNavigate, useSearchParams } from "react-router-dom";
 import { IGenre } from "../../Types/api";
-import styles from '../../Pages/SearchResult/SearchResult.module.css'
+import styles from './GenreCard.module.css'
 import { Badge, Button, Card, Center, Group, Text, Title, useComputedColorScheme } from "@mantine/core";
 function GenreCard({ data }: { data: IGenre }) {
     const [searchParams, setSearchParams] = useSearchParams()

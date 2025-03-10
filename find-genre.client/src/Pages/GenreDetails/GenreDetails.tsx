@@ -1,10 +1,8 @@
 ﻿import { Carousel } from '@mantine/carousel';
-import { Stack, Group, Title, Box, Badge, Text, useComputedColorScheme, useMantineTheme, Card, Flex, Image } from '@mantine/core';
-import styles from '../../Components/SongCard/SongCard.module.css'
+import { Stack, Group, Box } from '@mantine/core';
 import { IGenre } from '../../Types/api';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
-import bc_light from '../../assets/bandcamp-logotype-light-128.png'
 import json from '../../data.json'
 import { useEffect, useState } from 'react';
 import Descriptions from '../../Components/Descriptions/Descriptions';

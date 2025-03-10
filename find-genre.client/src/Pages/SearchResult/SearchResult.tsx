@@ -20,10 +20,12 @@ function SearchResult() {
         data.forEach(i => {
             i.tags.forEach((t) => {
                 if (include && include.includes(t.name)) {
-                    IArray.push(i)
+                    if (!(IArray.includes(i)))
+                        IArray.push(i)
                 }
                 if (exclude && exclude.includes(t.name)) {
-                    EArray.push(i)
+                    if (!(EArray.includes(i)))
+                        EArray.push(i)
                 }
                 return
             })

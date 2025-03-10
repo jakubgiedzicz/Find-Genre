@@ -1,10 +1,11 @@
-import { Box, Button, Divider, Stack, Text, TextInput, Title, Tooltip } from "@mantine/core";
+import { Alert, Box, Button, Divider, Flex, Stack, Text, TextInput, Title, Tooltip } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import HomeTagBox from "../../Components/HomeTagBox/HomeTagBox";
 import { ITagData } from "../../Types/hometag";
 import ReloadSearch from "../../Components/ReloadSearch/ReloadSearch";
 import SearchForm from "../../Components/SearchForm/SearchForm";
+import { InfoCircledIcon } from '@radix-ui/react-icons'
 
 function Home() {
     const [value, setValue] = useState("");
@@ -69,6 +70,11 @@ function Home() {
     }, [tags])
     return (
         <>
+            <Flex justify="flex-end" mx="1%">
+                <Alert variant="light" color="grape" title="WIP" icon={<InfoCircledIcon />}>
+                    This is a work in progress, only test data exists (genres with "Electronic" tag)
+                </Alert>
+            </Flex>
             <Stack pt="4em" align="center">
                 <Box>
                     <Title ta="center">Search by tags</Title>
@@ -103,7 +109,9 @@ function Home() {
                     )}
                     {items.map(
                         (tag) =>
-                            <HomeTagBox tag={tag} update={updateTag} key={"1" + tag.id} />
+                            tag.state === "default" && (
+                                <HomeTagBox tag={tag} update={updateTag} key={"1" + tag.id} />
+                            )
                     )}
                 </Stack>
             </Stack>

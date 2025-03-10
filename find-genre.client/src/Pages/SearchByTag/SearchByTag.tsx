@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SongCard from "../../Components/SongCard/SongCard";
 import { IGenre } from "../../Types/api";
 import { Loader } from "@mantine/core";
 
@@ -40,7 +39,7 @@ function SearchByTag() {
     }, [token]);
     return (
         <>
-            {data ? <SongCard props={data[4]} /> : <Loader color="indigo" />}
+            
         </>
     );
 }
