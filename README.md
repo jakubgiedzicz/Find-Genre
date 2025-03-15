@@ -1,3 +1,4 @@
+https://jakubgiedzicz.github.io/Find-Genre/
 API endpoints: 
 Genre:
 1. GetById - Id(>0) returns a Genre with its Tags, Subgenres and Subgenres' Tags.
