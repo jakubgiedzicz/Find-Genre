@@ -1,6 +1,5 @@
 import { Button, Group, Text, useMantineColorScheme } from "@mantine/core";
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
-import styles from "./HomeTagBox.module.css";
 import { ITagData, tagStateType } from "../../Types/hometag";
 import './HomeTagBox.css'
 interface Props {
@@ -10,20 +9,6 @@ interface Props {
 
 const HomeTagBox = (props: Props) => {
     const { colorScheme, setColorScheme } = useMantineColorScheme();
-    const tagBackground = () => {
-        if (colorScheme === "dark") {
-            if (props.tag.state === "include") {
-                return styles.include_dark;
-            } else if (props.tag.state === "exclude")
-                return styles.exclude_dark;
-        } else {
-            if (props.tag.state === "include") {
-                return styles.include_light;
-            } else if (props.tag.state === "exclude")
-                return styles.exclude_light;
-            }
-        return 
-    };
     const buttonVariant = () => {
         if (colorScheme === "dark") {
             return "light";
@@ -36,12 +21,6 @@ const HomeTagBox = (props: Props) => {
             props.update(props.tag, status)
         }
     };
-    const getHover = () => {
-        return colorScheme == "light" ? styles.light_box : styles.dark_box
-    }
-    //const getClassname = () => {
-    //    return tagBackground() + " " + styles.container_padding + ' ' + getHover() + ' ' + getHighlight()
-    //}
     
     const getHighlight = () => {
         if (props.tag.state != "default") {
@@ -52,7 +31,6 @@ const HomeTagBox = (props: Props) => {
             }
         }
     }
-
     return (
         <>
             <Group justify="space-between" className={`${props.tag.state}_${colorScheme} container_padding ${colorScheme}_box ${getHighlight()}`}>
