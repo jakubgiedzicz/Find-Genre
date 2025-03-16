@@ -61,10 +61,21 @@ function Home() {
             setInclude(tags.filter((i) => i.state == "include").map(o => o.value).join(" "))
             setExclude(tags.filter((i) => i.state == "exclude").map(o => o.value).join(" "))
     }
-    const items = tags.filter((i) => {
-        if (i.value.includes(value))
-            return i
-    })
+    const sortedTags = () => {
+        const included: JSX.Element[] = []
+        const excluded: JSX.Element[] = []
+        const defaults: JSX.Element[] = []
+        tags.forEach((i) => {
+            if (i.state === "default") {
+                defaults.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
+            } else if (i.state === "include") {
+                included.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
+            } else {
+                excluded.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
+            }
+        })
+        return [...included, ...excluded, ...defaults]
+    }
     useEffect(() => {
         handleSearchParams()
     }, [tags])
@@ -95,24 +106,7 @@ function Home() {
                         {(include || exclude) ? < SearchForm include={include} exclude={exclude} /> : <Tooltip label={"Choose tags to enable search!"}><Button disabled px={64} variant="filled" color="indigo" mt={16}>Find genres</Button></Tooltip>}
                     </Stack>
                     <Divider my="sm" />
-                    {tags.map(
-                        (tag) =>
-                            tag.state === "include" && (
-                                <HomeTagBox tag={tag} update={updateTag} key={"2" + tag.id} />
-                            )
-                    )}
-                    {tags.map(
-                        (tag) =>
-                            tag.state === "exclude" && (
-                                <HomeTagBox tag={tag} update={updateTag} key={"0" + tag.id} />
-                            )
-                    )}
-                    {items.map(
-                        (tag) =>
-                            tag.state === "default" && (
-                                <HomeTagBox tag={tag} update={updateTag} key={"1" + tag.id} />
-                            )
-                    )}
+                    {sortedTags()}
                 </Stack>
             </Stack>
         </>
