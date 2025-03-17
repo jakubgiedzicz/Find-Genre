@@ -66,11 +66,11 @@ function Home() {
         const excluded: JSX.Element[] = []
         const defaults: JSX.Element[] = []
         tags.forEach((i) => {
-            if (i.state === "default") {
+            if (i.state === "default" && i.value.includes(value)) {
                 defaults.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
-            } else if (i.state === "include") {
+            } else if (i.state === "include" && i.value.includes(value)) {
                 included.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
-            } else {
+            } else if (i.state === "exclude" && i.value.includes(value)) {
                 excluded.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
             }
         })

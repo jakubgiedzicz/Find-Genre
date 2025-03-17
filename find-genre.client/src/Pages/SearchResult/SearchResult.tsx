@@ -1,5 +1,5 @@
 import { IGenre } from "../../Types/api";
-import { Button, Center, SimpleGrid, Stack, Title } from "@mantine/core";
+import { Button, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import data from '../../data.json'
 import GenreCard from '../../Components/GenreCard/GenreCard';
@@ -9,11 +9,6 @@ function SearchResult() {
     const [genres, setGenres] = useState<IGenre[]>()
     const [include, setInclude] = useState(params.get("include")?.split(" "))
     const [exclude, setExclude] = useState(params.get("exclude")?.split(" "))
-    //console.log(data.filter((i) => {
-    //    params.get("exclude")?.split(" ").forEach((j) => {
-    //        if (i.tags.includes(j))
-    //    })
-    //}))
     const filterGenres = () => {
         const IArray: IGenre[] = []
         const EArray: IGenre[] = []
