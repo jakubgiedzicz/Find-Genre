@@ -22,7 +22,7 @@ export interface IGenre {
     description_short: string,
     artists?: IArtists[],
     descriptions: string[],
-    examples?: string[],
+    examples: string[],
     name: string,
     popularity: number,
     promoted?: string[],

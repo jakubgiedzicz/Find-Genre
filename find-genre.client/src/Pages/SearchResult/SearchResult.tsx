@@ -1,7 +1,7 @@
 import { IGenre } from "../../Types/api";
 import { Button, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import data from '../../data.json'
+import * as data from '../../data.json'
 import GenreCard from '../../Components/GenreCard/GenreCard';
 import { Link, useSearchParams } from "react-router-dom";
 function SearchResult() {
