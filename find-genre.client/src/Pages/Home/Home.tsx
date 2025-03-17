@@ -33,7 +33,6 @@ function Home() {
         { value: "Divine", id: 19, state: "default" },
         { value: "Easy", id: 20, state: "default" },
         { value: "Eerie", id: 21, state: "default" },
-        { value: "Electronic", id: 22, state: "default" },
         { value: "Happy", id: 23, state: "default" },
         { value: "Heavy", id: 24, state: "default" },
         { value: "Instrumental", id: 25, state: "default" },
@@ -66,11 +65,11 @@ function Home() {
         const excluded: JSX.Element[] = []
         const defaults: JSX.Element[] = []
         tags.forEach((i) => {
-            if (i.state === "default" && i.value.includes(value)) {
+            if (i.state === "default" && i.value.toLowerCase().includes(value.toLowerCase())) {
                 defaults.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
-            } else if (i.state === "include" && i.value.includes(value)) {
+            } else if (i.state === "include" && i.value.toLowerCase().includes(value.toLowerCase())) {
                 included.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
-            } else if (i.state === "exclude" && i.value.includes(value)) {
+            } else if (i.state === "exclude" && i.value.toLowerCase().includes(value.toLowerCase())) {
                 excluded.push(<HomeTagBox tag={i} update={updateTag} key={i.id} />)
             }
         })
