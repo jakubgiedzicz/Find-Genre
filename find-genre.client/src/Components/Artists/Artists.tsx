@@ -8,7 +8,7 @@ import bc_dark from '../../assets/bandcamp-logotype-dark-128.png'
 function Artists({ artists, id }: { artists: IArtists[], id: number }) {
     const scheme = useComputedColorScheme()
     const items = artists.map((i) =>
-    (<><Box key={id}>
+    (<Box key={id + i.name}><Box>
         <Title order={2}>{i.name}</Title>
         <Card>
             {i.spotify && < Card.Section className={styles.spotify_border} p={"1em"}>
@@ -23,8 +23,8 @@ function Artists({ artists, id }: { artists: IArtists[], id: number }) {
             </Card.Section>}
         </Card>
     </Box>
-        <Divider my="sm" />
-    </>
+        <Divider />
+    </Box>
     )
     )
     return (

@@ -30,17 +30,17 @@ function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string,
                       ></iframe></Carousel.Slide>))}
                   </Carousel>
               </Box>
-              <Box bg={bg_color()} py={8} className={styles.container_radius}>
-                  <Title order={3} p={8}>Tags:</Title>
-                  <Group p={8}>
+              <Box className={styles.container_radius}>
+                  <Title order={2}>Tags</Title>
+                  <Group>
                       {tags.map((element) => (
                           <Badge color="indigo" variant="light" key={element.tagId}>{element.name}</Badge>
                       ))}
                   </Group>
               </Box>
-              {subgenres && <Box bg={bg_color()} py={8} className={styles.container_radius}>
-                  <Title order={3} p={8}>Subgenres:</Title>
-                  <Group bd={"1px gray dashed"} p={8}>
+              {subgenres && <Box className={styles.container_radius}>
+                  <Title order={2}>Subgenres</Title>
+                  <Group>
                       {subgenres && subgenres.map((element) => (
                           <Badge key={element.subgenreId} color="indigo" variant="light">{element.name}</Badge>
                       ))}

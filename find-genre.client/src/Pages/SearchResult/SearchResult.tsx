@@ -12,7 +12,7 @@ function SearchResult() {
     const filterGenres = () => {
         const IArray: IGenre[] = []
         const EArray: IGenre[] = []
-        data.forEach(i => {
+        data.default.forEach(i => {
             i.tags.forEach((t) => {
                 if (include && include.includes(t.name)) {
                     if (!(IArray.includes(i)))

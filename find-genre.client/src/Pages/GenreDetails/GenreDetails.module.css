@@ -1,0 +1,8 @@
+.genre_details {
+    margin-inline:20%;
+    position:relative;
+}
+.table_of_contents {
+    position:sticky;
+    top:100px;
+}
