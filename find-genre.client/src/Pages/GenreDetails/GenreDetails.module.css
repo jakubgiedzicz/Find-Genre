@@ -1,8 +1,23 @@
 .genre_details {
-    margin-inline:20%;
+    margin-inline:15%;
     position:relative;
 }
 .table_of_contents {
     position:sticky;
     top:100px;
+}
+@media (max-width: 75em) {
+    .genre_details{
+        margin-inline:10%;
+    }
+}
+@media (max-width: 62em) {
+    .genre_details {
+        margin-inline: 5%;
+    }
+}
+@media (max-width: 48em) {
+    .genre_details {
+        margin-inline: 0;
+    }
 }
