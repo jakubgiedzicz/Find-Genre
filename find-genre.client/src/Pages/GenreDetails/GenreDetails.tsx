@@ -1,4 +1,4 @@
-﻿import { Stack, Group, Box, Divider, TableOfContents } from '@mantine/core';
+﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme } from '@mantine/core';
 import { IGenre } from '../../Types/api';
 import { useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
@@ -9,7 +9,8 @@ import Artists from '../../Components/Artists/Artists';
 import DetailsIntro from '../../Components/DetailsIntro/DetailsIntro';
 import styles from './GenreDetails.module.css'
 function GenreDetails() {
-    const data = useLocation()
+    const data = useLocation();
+    const scheme = useComputedColorScheme();
     const [genre, setGenre] = useState<IGenre>(data.state)
 
     useEffect(() => {
@@ -24,9 +25,13 @@ function GenreDetails() {
                 className={styles.table_of_contents}
                 color="indigo"
                 radius="sm"
-                variant="light"
+                variant={scheme === "dark" ? "light" : "filled"}
                 minDepthToOffset={0}
                 depthOffset={30}
+                getControlProps={({ data }) => ({
+                    onClick: () => data.getNode().scrollIntoView(),
+                    children: data.value
+                })}
             />
             <Stack>
                 <Stack justify="center" align="center" gap="lg">

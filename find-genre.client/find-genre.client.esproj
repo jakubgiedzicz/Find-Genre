@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\Pages\Home\" />
-    <Folder Include="src\Pages\GenreDetails\" />
     <Folder Include="src\Pages\SearchByTag\" />
     <Folder Include="src\Routes\" />
   </ItemGroup>

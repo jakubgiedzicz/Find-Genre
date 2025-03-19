@@ -13,7 +13,7 @@ function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string,
       <Stack>
           <SimpleGrid cols={{ base: 2 }}>
               <Stack justify="center">
-                      <Title order={1}>{name}</Title>
+                  <Title order={1} id={name}>{name}</Title>
                       <Text>
                           {desc}
                       </Text>
@@ -31,7 +31,7 @@ function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string,
                   </Carousel>
               </Box>
               <Box className={styles.container_radius}>
-                  <Title order={2}>Tags</Title>
+                  <Title order={2} id="Tags">Tags</Title>
                   <Group>
                       {tags.map((element) => (
                           <Badge color="indigo" variant="light" key={element.tagId}>{element.name}</Badge>
@@ -39,7 +39,7 @@ function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string,
                   </Group>
               </Box>
               {subgenres && <Box className={styles.container_radius}>
-                  <Title order={2}>Subgenres</Title>
+                  <Title order={2} id="Subgenres">Subgenres</Title>
                   <Group>
                       {subgenres && subgenres.map((element) => (
                           <Badge key={element.subgenreId} color="indigo" variant="light">{element.name}</Badge>
