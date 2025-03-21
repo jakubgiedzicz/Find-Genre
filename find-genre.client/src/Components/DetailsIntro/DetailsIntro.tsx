@@ -19,11 +19,10 @@ function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string,
                       </Text>
               </Stack>
               <Center>
-                  <Box w={500} h={400}>
+                  <Box className={styles.wrapper}>
                       <Carousel withIndicators controlSize={40} slideSize="100%" loop>
                           {examples && examples.map((i) => (<Carousel.Slide key={i}><iframe
-                              width="500"
-                              height="400"
+                              className={styles.ytframe}
                               loading="lazy"
                               src={`https://www.youtube.com/embed/${i}`}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

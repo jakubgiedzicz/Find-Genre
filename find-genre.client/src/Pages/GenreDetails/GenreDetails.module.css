@@ -18,6 +18,6 @@
 }
 @media (max-width: 48em) {
     .genre_details {
-        margin-inline: 0;
+        margin-inline: 2%;
     }
 }
