@@ -16,4 +16,4 @@ export const Router = createBrowserRouter([
             { path: "/search", element: <SearchResult /> }
         ]
     }
-], { basename: "/Find-Genre" })
+], { basename: "/Find-Genre/" })

@@ -6,10 +6,14 @@
 }
 .table_of_contents {
     position:sticky;
-    top:59px;
+    top:calc(60px + 1rem);
 }
 .breadcrumbs {
     padding: 1rem 0;
+}
+.similar {
+    font-size: 1.5rem;
+    text-transform:uppercase;
 }
 @media (max-width: 75em) {
     .genre_details{

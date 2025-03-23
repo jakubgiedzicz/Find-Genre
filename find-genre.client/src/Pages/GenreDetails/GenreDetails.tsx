@@ -1,6 +1,6 @@
-﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme, Breadcrumbs, Anchor } from '@mantine/core';
+﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme, Breadcrumbs, Anchor, Text, Button, Card, SimpleGrid } from '@mantine/core';
 import { IGenre } from '../../Types/api';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
 import * as json from '../../data.json'
 import { useEffect, useState } from 'react';
@@ -51,6 +51,41 @@ function GenreDetails() {
                     <Divider />
                     {genre?.descriptions && <Descriptions descs={genre?.descriptions} key={genre.genreId} id={genre.genreId} />}
                     {genre?.artists && <Artists artists={genre?.artists} id={genre.genreId} />}
+                    <Stack>
+                        <Group justify="space-between">
+                            <Text className={styles.similar}>More like this</Text>
+                            <Button color="indigo" component={Link} to="/">Back to search</Button>
+                        </Group>
+                        <Divider label="Similar genres" />
+                        <SimpleGrid cols={{ base:3, xl:4 }} py={32}>
+                            <Card shadow="md">
+                                    <Text size="xl" fw={500}>Wave</Text>
+                                    <Text size="lg" lineClamp={4}>
+                                        Wave is a genre of bass music and a visual art style that emerged
+                                        in the early 2010s in online communities. It is characterized
+                                        by atmospheric melodies and harmonies, melodic and heavy bass
+                                        such as reese, modern trap drums, chopped vocal samples processed
+                                        with reverb and delay, and arpeggiators.
+                                    </Text>
+                            </Card>
+                            <Card shadow="md">
+                                    <Text size="xl" fw={500}>Shoegaze</Text>
+                                    <Text size="lg" lineClamp={4}>
+                                        Shoegaze (originally called shoegazing and sometimes conflated with dream pop)
+                                        is a subgenre of indie and alternative rock characterized by its ethereal mixture
+                                        of obscured vocals, guitar distortion and effects, feedback, and overwhelming volume.
+                                    </Text>
+                            </Card>
+                            <Card shadow="md">
+                                    <Text size="xl" fw={500}>Synth-pop</Text>
+                                    <Text size="lg" lineClamp={4}>
+                                        Synth-pop (short for synthesizer pop; also called techno-pop) is a music genre
+                                        that first became prominent in the late 1970s and features the synthesizer as the
+                                        dominant musical instrument.
+                                    </Text>
+                            </Card>
+                        </SimpleGrid>
+                    </Stack>
                 </Stack>
             </Group>
         </>
