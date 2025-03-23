@@ -6,7 +6,7 @@ import LightDarkModeButton from "./Components/LightDarkModeButton/LightDarkModeB
 function App() {
     const mantineTheme = useMantineTheme()
     return (
-        <AppShell header={{ height: 60 }} padding="md" w="100dvw">
+        <AppShell header={{ height: 60 }} padding="md">
             <AppShell.Header>
                 <Group h="100%" px="md" justify="space-between">
                     <Group>
@@ -23,7 +23,7 @@ function App() {
                     <LightDarkModeButton />
                 </Group>
             </AppShell.Header>
-            <AppShell.Main w="100%">
+            <AppShell.Main>
                 <Outlet />
             </AppShell.Main>
         </AppShell>

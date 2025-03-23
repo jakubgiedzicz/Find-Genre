@@ -11,9 +11,15 @@
 .breadcrumbs {
     padding: 1rem 0;
 }
+.margin_outer {
+    margin-inline:10%;
+}
 .similar {
     font-size: 1.5rem;
-    text-transform:uppercase;
+    text-transform: uppercase;
+}
+.similar_card {
+    cursor:pointer;
 }
 @media (max-width: 75em) {
     .genre_details{
