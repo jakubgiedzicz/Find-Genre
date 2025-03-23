@@ -1,10 +1,15 @@
+.margin_inner {
+    margin-inline: 15%;
+}
 .genre_details {
-    margin-inline:15%;
     position:relative;
 }
 .table_of_contents {
     position:sticky;
-    top:100px;
+    top:59px;
+}
+.breadcrumbs {
+    padding: 1rem 0;
 }
 @media (max-width: 75em) {
     .genre_details{
