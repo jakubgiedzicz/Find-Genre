@@ -1,3 +1,4 @@
 .similar_card {
     cursor: pointer;
+    height:fit-content;
 }
