@@ -6,6 +6,8 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@mantine/core": [ "./node_modules/@mantine/core/lib/index.d.ts" ]
     },

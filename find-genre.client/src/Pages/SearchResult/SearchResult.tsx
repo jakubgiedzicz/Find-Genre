@@ -1,7 +1,7 @@
 import { IGenre } from "../../Types/api";
 import { Button, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import * as data from '../../data.json'
+import data from '../../data.json'
 import GenreCard from '../../Components/GenreCard/GenreCard';
 import { Link, useSearchParams } from "react-router-dom";
 function SearchResult() {
@@ -12,7 +12,7 @@ function SearchResult() {
     const filterGenres = () => {
         const IArray: IGenre[] = []
         const EArray: IGenre[] = []
-        data.default.forEach(i => {
+        data.forEach(i => {
             i.tags.forEach((t) => {
                 if (include && include.includes(t.name)) {
                     if (!(IArray.includes(i)))

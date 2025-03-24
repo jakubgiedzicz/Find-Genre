@@ -2,7 +2,7 @@
 import { IGenre } from '../../Types/api';
 import { Link, useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
-import * as json from '../../data.json'
+import json from '../../data.json'
 import { useEffect, useState } from 'react';
 import Descriptions from '../../Components/Descriptions/Descriptions';
 import Artists from '../../Components/Artists/Artists';
@@ -54,7 +54,7 @@ function GenreDetails() {
                     {genre?.artists && <Artists artists={genre?.artists} id={genre.genreId} />}
                 </Stack>
             </Group>
-            <Stack className={styles.margin_outer}>
+            <Stack className={styles.margin_inner}>
                 <Group justify="space-between">
                     <Text className={styles.similar}>More like this</Text>
                     <Button color="indigo" component={Link} to="/">Back to search</Button>
