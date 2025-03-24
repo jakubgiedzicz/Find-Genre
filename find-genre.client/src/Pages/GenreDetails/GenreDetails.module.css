@@ -18,9 +18,6 @@
     font-size: 1.5rem;
     text-transform: uppercase;
 }
-.similar_card {
-    cursor:pointer;
-}
 @media (max-width: 75em) {
     .genre_details{
         margin-inline:10%;
