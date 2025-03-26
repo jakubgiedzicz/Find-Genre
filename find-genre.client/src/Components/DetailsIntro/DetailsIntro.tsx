@@ -6,14 +6,11 @@ import { Carousel } from "@mantine/carousel";
 function DetailsIntro({ name, desc, tags, subgenres, examples }: { name: string, desc: string, tags: ITag[], subgenres: ISubgenre[] | undefined , examples: string[] }) {
     const theme = useMantineTheme();
     const scheme = useComputedColorScheme();
-    const bg_color = () => {
-        return scheme == 'light' ? theme.colors.gray[3] : theme.colors.dark[8]
-    }
   return (
       <Stack>
           <SimpleGrid cols={{ base: 1, xl: 2 }} verticalSpacing="md" spacing="md">
               <Stack justify="center" align="center">
-                  <Title order={1} id={name}>{name}</Title>
+                  <Title order={1} id={name} c={scheme === 'dark' ? 'white' : 'black'}>{name}</Title>
                   <Text w="80%">
                           {desc}
                       </Text>

@@ -1,10 +1,9 @@
 import "@mantine/core/styles.css";
-import { AppShell, Button, Group, useMantineTheme } from "@mantine/core";
+import { AppShell, Button, Group } from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
 import LightDarkModeButton from "./Components/LightDarkModeButton/LightDarkModeButton";
 
 function App() {
-    const mantineTheme = useMantineTheme()
     return (
         <AppShell header={{ height: 60 }} padding="md">
             <AppShell.Header>

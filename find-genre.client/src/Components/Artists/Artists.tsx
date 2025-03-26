@@ -9,7 +9,7 @@ function Artists({ artists, id }: { artists: IArtists[], id: number }) {
     const scheme = useComputedColorScheme()
     const items = artists.map((i) =>
     (<Box key={id + i.name}><Box>
-        <Title order={2} id={i.name}>{i.name}</Title>
+        <Title order={2} id={i.name} pl={32} py={8}>{i.name}</Title>
         <Card>
             {i.spotify && < Card.Section className={styles.spotify_border} p={"1em"}>
                 <iframe src={`https://open.spotify.com/embed/artist/${i.spotify}`} width="100%" height="352" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -23,13 +23,12 @@ function Artists({ artists, id }: { artists: IArtists[], id: number }) {
             </Card.Section>}
         </Card>
     </Box>
-        <Divider />
     </Box>
     )
     )
     return (
         <>
-            <Title order={1} id="Artists">
+            <Title order={1} c={scheme === 'dark' ? 'white' : 'black'}>
                 Artists
             </Title>
             {items}

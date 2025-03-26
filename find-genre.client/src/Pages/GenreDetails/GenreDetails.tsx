@@ -37,6 +37,7 @@ function GenreDetails() {
                     className={styles.table_of_contents}
                     color="indigo"
                     radius="sm"
+                    c={scheme === "dark"?"white":"black"}
                     variant={scheme === "dark" ? "light" : "filled"}
                     minDepthToOffset={0}
                     depthOffset={30}
@@ -49,31 +50,25 @@ function GenreDetails() {
                     <Stack justify="center" align="center" gap="lg">
                         {genre && <DetailsIntro name={genre.name} desc={genre.description_short} tags={genre.tags} subgenres={genre?.subgenres} examples={genre.examples} />}
                     </Stack>
-                    <Divider />
+                    <Divider my={32} />
                     {genre?.descriptions && <Descriptions descs={genre?.descriptions} key={genre.genreId} id={genre.genreId} />}
                     {genre?.artists && <Artists artists={genre?.artists} id={genre.genreId} />}
-                </Stack>
-            </Group>
-            <Stack className={styles.margin_inner}>
-                <Group justify="space-between">
-                    <Text className={styles.similar}>More like this</Text>
-                    <Button color="indigo" component={Link} to="/">Back to search</Button>
-                </Group>
-                <Divider label="Similar genres" />
-                <SimpleGrid cols={{ base: 3, xl: 4 }} py={32}>
-                    <GenreCardSmall title="Wave" description="Wave is a genre of bass music and a visual art style that emerged
+                    <Text className={styles.similar} mt={32}>More like this</Text>
+                    <SimpleGrid cols={{ base: 3, xl: 4 }} mb={32}>
+                        <GenreCardSmall title="Wave" description="Wave is a genre of bass music and a visual art style that emerged
               in the early 2010s in online communities. It is characterized
               by atmospheric melodies and harmonies, melodic and heavy bass
               such as reese, modern trap drums, chopped vocal samples processed
               with reverb and delay, and arpeggiators."/>
-                    <GenreCardSmall title="Shoegaze" description="Shoegaze (originally called shoegazing and sometimes conflated with dream pop)
+                        <GenreCardSmall title="Shoegaze" description="Shoegaze (originally called shoegazing and sometimes conflated with dream pop)
                             is a subgenre of indie and alternative rock characterized by its ethereal mixture
                             of obscured vocals, guitar distortion and effects, feedback, and overwhelming volume." />
-                    <GenreCardSmall title="Synth-pop" description="Synth-pop (short for synthesizer pop; also called techno-pop) is a music genre
+                        <GenreCardSmall title="Synth-pop" description="Synth-pop (short for synthesizer pop; also called techno-pop) is a music genre
                             that first became prominent in the late 1970s and features the synthesizer as the
                             dominant musical instrument." />
-                </SimpleGrid>
-            </Stack>
+                    </SimpleGrid>
+                </Stack>
+            </Group>
         </>
     );
 }
