@@ -1,5 +1,5 @@
 .margin_inner {
-    margin-inline: 15%;
+    margin-inline: 20%;
 }
 .genre_details {
     position:relative;
@@ -17,6 +17,11 @@
 .similar {
     font-size: 1.5rem;
     text-transform: uppercase;
+}
+@media (max-width: 88em) {
+    .genre_details {
+        margin-inline: 15%;
+    }
 }
 @media (max-width: 75em) {
     .genre_details{

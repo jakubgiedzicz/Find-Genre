@@ -1,6 +1,6 @@
 ﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme, Breadcrumbs, Anchor, Text, Button, Card, SimpleGrid } from '@mantine/core';
 import { IGenre } from '../../Types/api';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
 import json from '../../data.json'
 import { useEffect, useState } from 'react';
