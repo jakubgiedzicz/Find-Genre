@@ -54,7 +54,7 @@ function GenreDetails() {
                     {genre?.descriptions && <Descriptions descs={genre?.descriptions} key={genre.genreId} id={genre.genreId} />}
                     {genre?.artists && <Artists artists={genre?.artists} id={genre.genreId} />}
                     <Text className={styles.similar} mt={32}>More like this</Text>
-                    <SimpleGrid cols={{ base: 3, xl: 4 }} mb={32}>
+                    <SimpleGrid cols={{ base: 3, xl: 4 }} mb={64}>
                         <GenreCardSmall title="Wave" description="Wave is a genre of bass music and a visual art style that emerged
               in the early 2010s in online communities. It is characterized
               by atmospheric melodies and harmonies, melodic and heavy bass
