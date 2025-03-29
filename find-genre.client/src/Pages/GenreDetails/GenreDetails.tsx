@@ -29,7 +29,7 @@ function GenreDetails() {
         }
     }, [])
     return (
-        <Box pos="relative" className={styles.page_wrapper}>
+        <>
             <Breadcrumbs separator="→" separatorMargin="sm" className={styles.breadcrumbs + ' ' + styles.margin_inner}>
                 {items}
             </Breadcrumbs>
@@ -47,7 +47,7 @@ function GenreDetails() {
                         children: data.value
                     })}
                 />
-                <Stack>
+                <Stack pos="relative">
                     <Stack justify="center" align="center" gap="lg">
                         {genre && <DetailsIntro name={genre.name} desc={genre.description_short} tags={genre.tags} subgenres={genre?.subgenres} examples={genre.examples} />}
                     </Stack>
@@ -68,10 +68,10 @@ function GenreDetails() {
                             that first became prominent in the late 1970s and features the synthesizer as the
                             dominant musical instrument." />
                     </SimpleGrid>
+                    <BackgroundLight />
                 </Stack>
             </Group>
-            <BackgroundLight />
-        </Box>
+        </>
     );
 }
 

@@ -1,12 +1,11 @@
 .light {
     z-index: -1;
     position: absolute;
-    bottom: calc(-1em - 150px);
-    right: calc(-1em - 150px);
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    filter: blur(10em);
+    bottom: 0;
+    right: 0;
+    left:0;
+    height: 50px;
+    filter:blur(12em) brightness(70%);
     background-color: #4c6ef5;
     animation-name:bottomLight;
     animation-duration:16s;
