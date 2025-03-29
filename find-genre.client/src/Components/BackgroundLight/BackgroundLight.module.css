@@ -1,0 +1,30 @@
+.light {
+    z-index: -1;
+    position: absolute;
+    bottom: calc(-1em - 150px);
+    right: calc(-1em - 150px);
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(10em);
+    background-color: #4c6ef5;
+    animation-name:bottomLight;
+    animation-duration:16s;
+    animation-iteration-count:infinite;
+}
+@media (prefers-reduced-motion){
+    .light {
+        animation:none;
+    }
+}
+@keyframes bottomLight {
+    0% {
+        background-color: #4c6ef5;
+    }
+    50% {
+        background-color: #7950f2;
+    }
+    100% {
+        background-color: #4c6ef5;
+    }
+}

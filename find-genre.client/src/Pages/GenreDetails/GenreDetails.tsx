@@ -1,4 +1,4 @@
-﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme, Breadcrumbs, Anchor, Text, Button, Card, SimpleGrid } from '@mantine/core';
+﻿import { Stack, Group, Divider, TableOfContents, useComputedColorScheme, Breadcrumbs, Anchor, Text, Button, Card, SimpleGrid, Box } from '@mantine/core';
 import { IGenre } from '../../Types/api';
 import { useLocation } from 'react-router-dom';
 import '@mantine/carousel/styles.css';
@@ -9,6 +9,7 @@ import Artists from '../../Components/Artists/Artists';
 import DetailsIntro from '../../Components/DetailsIntro/DetailsIntro';
 import styles from './GenreDetails.module.css'
 import GenreCardSmall from '../../Components/GenreCardSmall/GenreCardSmall';
+import BackgroundLight from '../../Components/BackgroundLight/BackgroundLight';
 function GenreDetails() {
     const data = useLocation();
     const scheme = useComputedColorScheme();
@@ -28,7 +29,7 @@ function GenreDetails() {
         }
     }, [])
     return (
-        <>
+        <Box pos="relative" className={styles.page_wrapper}>
             <Breadcrumbs separator="→" separatorMargin="sm" className={styles.breadcrumbs + ' ' + styles.margin_inner}>
                 {items}
             </Breadcrumbs>
@@ -69,7 +70,8 @@ function GenreDetails() {
                     </SimpleGrid>
                 </Stack>
             </Group>
-        </>
+            <BackgroundLight />
+        </Box>
     );
 }
 
